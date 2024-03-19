@@ -17,6 +17,7 @@ import org.opencds.cqf.fhir.cr.measure.r4.R4MeasureProcessor
 import org.opencds.cqf.fhir.cr.plandefinition.PlanDefinitionProcessor
 import org.opencds.cqf.fhir.utility.Ids
 import org.opencds.cqf.fhir.utility.monad.Eithers
+import org.opencds.cqf.fhir.utility.repository.Repositories
 import org.opencds.cqf.fhir.utility.repository.ig.IgRepository
 import org.slf4j.LoggerFactory
 import org.springframework.core.io.ClassPathResource
@@ -26,12 +27,6 @@ open class R4FhirOperationHelper {
     private val fhirContextR4 = FhirContext.forR4Cached()
     private val evaluationSettings: EvaluationSettings = EvaluationSettings.getDefault()
 
-
-//    private val measureEvaluationOptions =
-//        MeasureEvaluationOptions().apply { evaluationSettings = this@R4FhirOperationHelper.evaluationSettings }
-//    private val measureProcessor = R4MeasureProcessor(igRepository, measureEvaluationOptions)
-
-//    private val logger = LoggerFactory.getLogger(HelperService::class.java)
 
      fun generateCarePlan(
         subject: String,
@@ -45,13 +40,15 @@ open class R4FhirOperationHelper {
         setting: IBaseDatatype? = null,
         settingContext: IBaseDatatype? = null
     ): IBaseResource {
-          val resource = ClassPathResource("r4")
-          val directoryPath: Path = Paths.get(resource.uri)
-          val igRepository = IgRepository(fhirContextR4, directoryPath)
-          val planDefinitionProcessor = PlanDefinitionProcessor(igRepository, evaluationSettings)
+         val endpoint = Endpoint().apply {
+             address = "http://localhost:8080/fhir"
+         }
+
+         val restRepository = Repositories.createRestRepository(fhirContextR4,endpoint)
+         val planDefinitionProcessor = PlanDefinitionProcessor(restRepository, evaluationSettings)
 
         return planDefinitionProcessor.apply(
-            Eithers.forMiddle3(Ids.newId(igRepository.fhirContext(), ResourceType.PlanDefinition.name, planDefinitionId)),
+            Eithers.forMiddle3(Ids.newId(fhirContextR4, ResourceType.PlanDefinition.name, planDefinitionId)),
             /* subject = */ subject,
             /* encounterId = */ encounterId,
             /* practitionerId = */ practitionerId,

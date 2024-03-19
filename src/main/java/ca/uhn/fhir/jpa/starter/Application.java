@@ -62,9 +62,6 @@ public class Application extends SpringBootServletInitializer {
 		servletRegistrationBean.addUrlMappings("/fhir/*");
 		servletRegistrationBean.setLoadOnStartup(1);
 
-		// Register your resource provider
-//		restfulServer.registerProvider(new MyPatientResourceProvider());
-
 		return servletRegistrationBean;
 	}
 
