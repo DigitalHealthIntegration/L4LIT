@@ -1,0 +1,12 @@
+{
+  "resourceType" : "PlanDefinition",
+  "id" : "MedRequest-Example",
+  "url" : "http://localhost/PlanDefinition/MedRequest-Example",
+  "title" : "This example illustrates a medication request",
+  "status" : "active",
+  "action" : [{
+    "id" : "medication-action-1",
+    "title" : "Administer Medication 1",
+    "definitionCanonical" : "http://localhost/ActivityDefinition/MedicationRequest-1"
+  }]
+}

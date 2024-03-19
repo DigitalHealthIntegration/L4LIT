@@ -1,0 +1,10 @@
+{
+  "resourceType" : "ActivityDefinition",
+  "id" : "MedicationRequest-1",
+  "url" : "http://localhost/ActivityDefinition/MedicationRequest-1",
+  "status": "active",
+  "kind" : "MedicationRequest",
+  "productCodeableConcept" : {
+    "text" : "Medication 1"
+  }
+}
