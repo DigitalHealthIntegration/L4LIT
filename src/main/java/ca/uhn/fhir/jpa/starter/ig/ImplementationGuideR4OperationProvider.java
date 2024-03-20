@@ -24,7 +24,6 @@ import java.io.IOException;
 @Service
 public class ImplementationGuideR4OperationProvider implements IImplementationGuideOperationProvider {
 
-	R4FhirOperationHelper helper = new R4FhirOperationHelper();
 	IPackageInstallerSvc packageInstallerSvc;
 
 	public ImplementationGuideR4OperationProvider(IPackageInstallerSvc packageInstallerSvc) {
@@ -42,50 +41,6 @@ public class ImplementationGuideR4OperationProvider implements IImplementationGu
 		return new Parameters();
 	}
 
-	@Operation(idempotent = true, name = "$hello-world")
-	public OperationOutcome hello_world() {
-		OperationOutcome outcome = new OperationOutcome();
-		outcome.addIssue().setDiagnostics("Bye");
-		return outcome;
-	}
-
-	@Operation(idempotent = true, name = "$apply")
-	public IBaseResource applyPlanDefinition(
-//		@IdParam IdType theId,
-//		@OperationParam(name = "subject", min = 1, max = 1) String subject,
-		RequestDetails theRequestDetails
-	) {
-//		String subjectId = theSubject.getIdPart();
-		// Log the values of theId and subject
-		System.out.println("ID: " + theRequestDetails);
-		System.out.println("Subject: " + theRequestDetails);
-//		IBaseResource output =
-//			helper.generateCarePlan(
-//				subjectId,
-//				theId.toString(),
-//				null, // encounterId
-//				null, // practitionerId
-//				null, // organizationId
-//				null, // userType
-//				null, // userLanguage
-//				null, // userTaskContext
-//				null, // setting
-//				null // settingContext
-//			);
-//		return output;
-		return null;
-	}
-
-//	@Operation(name = "$apply", typeName = "ImplementationGuide")
-//	public Parameters apply(@OperationParam(name = "npmContent", min = 1, max = 1) Base64BinaryType implementationGuide) {
-//		try {
-//
-//			IBaseResource output =
-//				helper.generateCarePlan(subject = "Patient/$patientId", planDefinitionId = planDefinitionId)		} catch (IOException e) {
-//			throw new RuntimeException(e);
-//		}
-//		return new Parameters();
-//	}
 
 	@Operation(name = "$uninstall", typeName = "ImplementationGuide")
 	public Parameters uninstall(@OperationParam(name = "name", min = 1, max = 1) String name, @OperationParam(name = "version", min = 1, max = 1) String version) {

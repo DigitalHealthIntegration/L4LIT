@@ -43,6 +43,9 @@ import ca.uhn.fhir.jpa.starter.annotations.OnCorsPresent;
 import ca.uhn.fhir.jpa.starter.annotations.OnImplementationGuidesPresent;
 import ca.uhn.fhir.jpa.starter.common.validation.IRepositoryValidationInterceptorFactory;
 import ca.uhn.fhir.jpa.starter.customOperations.r4.ApplyOperationProvider;
+import ca.uhn.fhir.jpa.starter.customOperations.r4.CustomPackageInstallerSvcImpl;
+import ca.uhn.fhir.jpa.starter.customOperations.r4.ExtractOperationProvider;
+import ca.uhn.fhir.jpa.starter.customOperations.services.HelperService;
 import ca.uhn.fhir.jpa.starter.ig.IImplementationGuideOperationProvider;
 import ca.uhn.fhir.jpa.starter.util.EnvironmentHelper;
 import ca.uhn.fhir.jpa.subscription.util.SubscriptionDebugLogInterceptor;
@@ -109,6 +112,9 @@ public class StarterJpaConfig {
 
 	@Autowired
 	private ConfigurableEnvironment configurableEnvironment;
+
+	@Autowired
+	private HelperService helperService;
 
 	/**
 	 * Customize the default/max page sizes for search results. You can set these however
@@ -187,16 +193,45 @@ public class StarterJpaConfig {
 		return loggingInterceptor;
 	}
 
+//	@Bean("packageInstaller")
+//	@Primary
+//	@Conditional(OnImplementationGuidesPresent.class)
+//	public IPackageInstallerSvc packageInstaller(
+//			AppProperties appProperties,
+//			JobDefinition<ReindexJobParameters> reindexJobParametersJobDefinition,
+//			JobDefinitionRegistry jobDefinitionRegistry,
+//			IPackageInstallerSvc packageInstallerSvc) {
+//		jobDefinitionRegistry.addJobDefinitionIfNotRegistered(reindexJobParametersJobDefinition);
+//		System.out.println("inside packageInstaller");
+//		if (appProperties.getImplementationGuides() != null) {
+//			Map<String, PackageInstallationSpec> guides = appProperties.getImplementationGuides();
+//			for (Map.Entry<String, PackageInstallationSpec> guidesEntry : guides.entrySet()) {
+//				PackageInstallationSpec packageInstallationSpec = guidesEntry.getValue();
+//				if (appProperties.getInstall_transitive_ig_dependencies()) {
+//
+//					packageInstallationSpec
+//							.addDependencyExclude("hl7.fhir.r2.core")
+//							.addDependencyExclude("hl7.fhir.r3.core")
+//							.addDependencyExclude("hl7.fhir.r4.core")
+//							.addDependencyExclude("hl7.fhir.r5.core");
+//				}
+//				packageInstallerSvc.install(packageInstallationSpec);
+//			}
+//		}
+//		return packageInstallerSvc;
+//	}
+
+
 	@Bean("packageInstaller")
 	@Primary
 	@Conditional(OnImplementationGuidesPresent.class)
 	public IPackageInstallerSvc packageInstaller(
-			AppProperties appProperties,
-			JobDefinition<ReindexJobParameters> reindexJobParametersJobDefinition,
-			JobDefinitionRegistry jobDefinitionRegistry,
-			IPackageInstallerSvc packageInstallerSvc) {
+		AppProperties appProperties,
+		JobDefinition<ReindexJobParameters> reindexJobParametersJobDefinition,
+		JobDefinitionRegistry jobDefinitionRegistry,
+		CustomPackageInstallerSvcImpl packageInstallerSvc) {
 		jobDefinitionRegistry.addJobDefinitionIfNotRegistered(reindexJobParametersJobDefinition);
-
+		System.out.println("inside packageInstaller");
 		if (appProperties.getImplementationGuides() != null) {
 			Map<String, PackageInstallationSpec> guides = appProperties.getImplementationGuides();
 			for (Map.Entry<String, PackageInstallationSpec> guidesEntry : guides.entrySet()) {
@@ -204,10 +239,10 @@ public class StarterJpaConfig {
 				if (appProperties.getInstall_transitive_ig_dependencies()) {
 
 					packageInstallationSpec
-							.addDependencyExclude("hl7.fhir.r2.core")
-							.addDependencyExclude("hl7.fhir.r3.core")
-							.addDependencyExclude("hl7.fhir.r4.core")
-							.addDependencyExclude("hl7.fhir.r5.core");
+						.addDependencyExclude("hl7.fhir.r2.core")
+						.addDependencyExclude("hl7.fhir.r3.core")
+						.addDependencyExclude("hl7.fhir.r4.core")
+						.addDependencyExclude("hl7.fhir.r5.core");
 				}
 				packageInstallerSvc.install(packageInstallationSpec);
 			}
@@ -337,6 +372,7 @@ public class StarterJpaConfig {
 
 		fhirServer.registerInterceptor(loggingInterceptor);
 		fhirServer.registerProvider(new ApplyOperationProvider());
+		fhirServer.registerProvider(new ExtractOperationProvider(helperService));
 
 		implementationGuideOperationProvider.ifPresent(fhirServer::registerProvider);
 

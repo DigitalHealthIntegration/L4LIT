@@ -1,25 +1,32 @@
-//package ca.uhn.fhir.jpa.starter.customOperations.services
-//
-//import ca.uhn.fhir.context.FhirContext
+package ca.uhn.fhir.jpa.starter.customOperations.services
+
+import ca.uhn.fhir.context.FhirContext
 //import ca.uhn.fhir.jpa.starter.customOperations.FhirOperationStrategy
 //import ca.uhn.fhir.jpa.starter.customOperations.r4.R4FhirOperationStrategy
-//import ca.uhn.fhir.jpa.starter.customOperations.r4.r4mapping.R4ResourceMapper
+import ca.uhn.fhir.jpa.starter.customOperations.r4.r4mapping.R4ResourceMapper
 //import ca.uhn.fhir.jpa.starter.customOperations.r5.R5FhirOperationStrategy
-//import org.hl7.fhir.r4.model.CanonicalType
-//import org.hl7.fhir.r4.model.Questionnaire
-//import org.hl7.fhir.r4.model.QuestionnaireResponse
-//import org.slf4j.LoggerFactory
-//import org.springframework.core.io.ClassPathResource
-//import org.springframework.web.multipart.MultipartFile
-//import java.io.BufferedReader
-//import java.io.IOException
-//import java.io.InputStreamReader
-//import java.nio.file.Files
-//import java.nio.file.Path
-//import java.nio.file.Paths
+import org.hl7.fhir.r4.model.CanonicalType
+import org.hl7.fhir.r4.model.Questionnaire
+import org.hl7.fhir.r4.model.QuestionnaireResponse
+import org.hl7.fhir.utilities.npm.NpmPackage
+import org.slf4j.LoggerFactory
+import org.springframework.core.io.ClassPathResource
+import org.springframework.stereotype.Service
+import org.springframework.web.multipart.MultipartFile
+import java.io.BufferedReader
+import java.io.IOException
+import java.io.InputStreamReader
+import java.nio.file.Files
+import java.nio.file.Path
+import java.nio.file.Paths
 //
-//open class HelperService {
-//    private val fhirContextR4 = FhirContext.forR4Cached()
+@Service
+class HelperService {
+
+    lateinit var installedNpmPackage: NpmPackage
+
+
+    //    private val fhirContextR4 = FhirContext.forR4Cached()
 ////    private val evaluationSettings: EvaluationSettings = EvaluationSettings.getDefault()
 //    private val resource = ClassPathResource("r4")
 //    private val directoryPath: Path = Paths.get(resource.uri)
@@ -60,7 +67,7 @@
 ////        ) as IBaseResource
 ////    }
 //
-//    fun readFileFromResources(filename: String) = javaClass.getResourceAsStream(filename)!!
+    fun readFileFromResources(filename: String) = javaClass.getResourceAsStream(filename)!!
 //
 //    fun readResourceFile(file: MultipartFile): Pair<Questionnaire?, QuestionnaireResponse?> {
 //        val inputStream = file.inputStream
@@ -186,4 +193,4 @@
 //    }
 //
 //
-//}
+}

@@ -61,38 +61,38 @@ open class R4FhirOperationHelper {
         ) as IBaseResource
     }
 
-//
-//    suspend fun extract(
-//        questionnaire: Questionnaire,
-//        questionnaireResponse: QuestionnaireResponse,
-//        r4StructureMapExtractionContext: R4StructureMapExtractionContext? = null
-//    ): Bundle {
-//        return when {
-//            r4StructureMapExtractionContext != null -> {
-//                R4ResourceMapper.extractByStructureMap(
-//                    questionnaire,
-//                    questionnaireResponse,
-//                    r4StructureMapExtractionContext
-//                )
-//            }
-//            else -> {
-//                Bundle()
-//            }
-//        }
-//    }
-//
-//    suspend fun loadWorkerContext(
-//        vararg npmPackages: NpmPackage,
-//        allowLoadingDuplicates: Boolean = true,
-//        loader: SimpleWorkerContext.IContextResourceLoader? = null,
-//    ): IWorkerContext {
-//        val simpleWorkerContext = SimpleWorkerContext()
-//        simpleWorkerContext.apply {
-//            isAllowLoadingDuplicates = allowLoadingDuplicates
-//            npmPackages.forEach { npmPackage -> loadFromPackage(npmPackage, loader) }
-//        }
-//        return simpleWorkerContext
-//    }
+
+    suspend fun extract(
+        questionnaire: Questionnaire,
+        questionnaireResponse: QuestionnaireResponse,
+        r4StructureMapExtractionContext: R4StructureMapExtractionContext? = null
+    ): Bundle {
+        return when {
+            r4StructureMapExtractionContext != null -> {
+                R4ResourceMapper.extractByStructureMap(
+                    questionnaire,
+                    questionnaireResponse,
+                    r4StructureMapExtractionContext
+                )
+            }
+            else -> {
+                Bundle()
+            }
+        }
+    }
+
+    suspend fun loadWorkerContext(
+        vararg npmPackages: NpmPackage,
+        allowLoadingDuplicates: Boolean = true,
+        loader: SimpleWorkerContext.IContextResourceLoader? = null,
+    ): IWorkerContext {
+        val simpleWorkerContext = SimpleWorkerContext()
+        simpleWorkerContext.apply {
+            isAllowLoadingDuplicates = allowLoadingDuplicates
+            npmPackages.forEach { npmPackage -> loadFromPackage(npmPackage, loader) }
+        }
+        return simpleWorkerContext
+    }
 //
 ////    fun evaluateMeasure(
 ////        measureId: String,

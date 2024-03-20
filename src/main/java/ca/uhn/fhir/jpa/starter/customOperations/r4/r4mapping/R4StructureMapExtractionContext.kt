@@ -45,5 +45,6 @@ data class R4StructureMapExtractionContext(
    * @param IWorkerContext May be used with other HAPI FHIR classes, like using
    *   [StructureMapUtilities.parse] to parse content in the FHIR Mapping Language.
    */
-  val structureMapProvider: (suspend (String, IWorkerContext) -> StructureMap?)
+//  val structureMapProvider: (suspend (String, IWorkerContext) -> StructureMap?)
+  val structureMap: StructureMap
 )
