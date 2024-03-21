@@ -42,10 +42,7 @@ import ca.uhn.fhir.jpa.starter.AppProperties;
 import ca.uhn.fhir.jpa.starter.annotations.OnCorsPresent;
 import ca.uhn.fhir.jpa.starter.annotations.OnImplementationGuidesPresent;
 import ca.uhn.fhir.jpa.starter.common.validation.IRepositoryValidationInterceptorFactory;
-import ca.uhn.fhir.jpa.starter.customOperations.r4.ApplyOperationProvider;
-import ca.uhn.fhir.jpa.starter.customOperations.r4.CustomPackageInstallerSvcImpl;
-import ca.uhn.fhir.jpa.starter.customOperations.r4.ExtractOperationProvider;
-import ca.uhn.fhir.jpa.starter.customOperations.services.HelperService;
+import ca.uhn.fhir.jpa.starter.customOperations.r4.*;
 import ca.uhn.fhir.jpa.starter.ig.IImplementationGuideOperationProvider;
 import ca.uhn.fhir.jpa.starter.util.EnvironmentHelper;
 import ca.uhn.fhir.jpa.subscription.util.SubscriptionDebugLogInterceptor;
@@ -112,9 +109,6 @@ public class StarterJpaConfig {
 
 	@Autowired
 	private ConfigurableEnvironment configurableEnvironment;
-
-	@Autowired
-	private HelperService helperService;
 
 	/**
 	 * Customize the default/max page sizes for search results. You can set these however
@@ -310,7 +304,11 @@ public class StarterJpaConfig {
 			IPackageInstallerSvc packageInstallerSvc,
 			ThreadSafeResourceDeleterSvc theThreadSafeResourceDeleterSvc,
 			ApplicationContext appContext,
-			Optional<IpsOperationProvider> theIpsOperationProvider, Optional<IImplementationGuideOperationProvider> implementationGuideOperationProvider) {
+			Optional<IpsOperationProvider> theIpsOperationProvider, Optional<IImplementationGuideOperationProvider> implementationGuideOperationProvider,
+			ApplyOperationProvider applyOperationProvider,
+			ExtractOperationProvider extractOperationProvider,
+			EvaluateMeasureOperationProvider evaluateMeasureOperationProvider
+	) {
 		RestfulServer fhirServer = new RestfulServer(fhirSystemDao.getContext());
 		List<String> supportedResourceTypes = appProperties.getSupported_resource_types();
 
@@ -371,8 +369,9 @@ public class StarterJpaConfig {
 		}
 
 		fhirServer.registerInterceptor(loggingInterceptor);
-		fhirServer.registerProvider(new ApplyOperationProvider());
-		fhirServer.registerProvider(new ExtractOperationProvider(helperService));
+		fhirServer.registerProvider(applyOperationProvider);
+		fhirServer.registerProvider(extractOperationProvider);
+		fhirServer.registerProvider(evaluateMeasureOperationProvider);
 
 		implementationGuideOperationProvider.ifPresent(fhirServer::registerProvider);
 

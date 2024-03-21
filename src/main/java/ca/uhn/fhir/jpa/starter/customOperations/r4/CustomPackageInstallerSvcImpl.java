@@ -11,11 +11,13 @@ import ca.uhn.fhir.interceptor.model.RequestPartitionId;
 import ca.uhn.fhir.jpa.api.config.JpaStorageSettings;
 import ca.uhn.fhir.jpa.api.dao.DaoRegistry;
 import ca.uhn.fhir.jpa.api.dao.IFhirResourceDao;
-import ca.uhn.fhir.jpa.dao.data.INpmPackageVersionDao;
-import ca.uhn.fhir.jpa.dao.tx.IHapiTransactionService;
 import ca.uhn.fhir.jpa.model.config.PartitionSettings;
-import ca.uhn.fhir.jpa.model.entity.NpmPackageVersionEntity;
-import ca.uhn.fhir.jpa.packages.*;
+import ca.uhn.fhir.jpa.packages.PackageInstallationSpec;
+import ca.uhn.fhir.jpa.packages.PackageInstallerSvcImpl;
+import ca.uhn.fhir.jpa.packages.IHapiPackageCacheManager;
+import ca.uhn.fhir.jpa.packages.PackageInstallOutcomeJson;
+import ca.uhn.fhir.jpa.packages.ImplementationGuideInstallationException;
+import ca.uhn.fhir.jpa.packages.JpaPackageCache;
 import ca.uhn.fhir.jpa.packages.loader.PackageResourceParsingSvc;
 import ca.uhn.fhir.jpa.packages.util.PackageUtils;
 import ca.uhn.fhir.jpa.searchparam.SearchParameterMap;
@@ -49,12 +51,11 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
+
 @Service
 public class CustomPackageInstallerSvcImpl extends PackageInstallerSvcImpl {
-//	private static final Logger ourLog = LoggerFactory.getLogger(CustomPackageInstallerSvcImpl.class);
 
 	private static final Logger ourLog = LoggerFactory.getLogger(CustomPackageInstallerSvcImpl.class);
-
 
 	boolean enabled = true;
 	@Autowired
@@ -68,7 +69,7 @@ public class CustomPackageInstallerSvcImpl extends PackageInstallerSvcImpl {
 
 	@Autowired
 	private IValidationSupport validationSupport;
-		@Autowired
+	@Autowired
 	private PackageResourceParsingSvc myPackageResourceParsingSvc;
 
 	@Autowired
@@ -90,7 +91,7 @@ public class CustomPackageInstallerSvcImpl extends PackageInstallerSvcImpl {
 			case DSTU2_HL7ORG:
 			case DSTU2_1:
 			default:
-//				ourLog.info("IG installation not supported for version: {}", this.myFhirContext.getVersion().getVersion());
+				ourLog.info("IG installation not supported for version: {}", this.myFhirContext.getVersion().getVersion());
 				this.enabled = false;
 			case R5:
 			case R4B:
@@ -110,32 +111,28 @@ public class CustomPackageInstallerSvcImpl extends PackageInstallerSvcImpl {
 		ourLog.info("Iam inside custom method to retrieve npmpackage");
 		PackageInstallOutcomeJson retVal = new PackageInstallOutcomeJson();
 
-			try {
+		try {
+			NpmPackage npmPackage = this.myPackageCacheManager.installPackage(theInstallationSpec);
+			ourLog.info("Iam assigning installedPackage");
+			installedPackage = npmPackage;
+			helperService.installedNpmPackage = npmPackage;
 
-				NpmPackage npmPackage = this.myPackageCacheManager.installPackage(theInstallationSpec);
-				ourLog.info("Iam assigning installedPackage");
-				installedPackage = npmPackage;
-				helperService.installedNpmPackage = npmPackage;
-
-				if (npmPackage == null) {
-					throw new IOException(Msg.code(1284) + "Package not found");
-				}
-
-				retVal.getMessage().addAll(JpaPackageCache.getProcessingMessages(npmPackage));
-				if (theInstallationSpec.isFetchDependencies()) {
-					fetchAndInstallDependencies(npmPackage, theInstallationSpec, retVal);
-				}
-
-				if (theInstallationSpec.getInstallMode() == PackageInstallationSpec.InstallModeEnum.STORE_AND_INSTALL) {
-					install(npmPackage, theInstallationSpec, retVal);
-//					this.mySearchParamRegistryController().refreshCacheIfNecessary();
-				}
-
-				this.validationSupport.invalidateCaches();
-			} catch (IOException var5) {
-				throw new ImplementationGuideInstallationException(Msg.code(1285) + "Could not load NPM package " + theInstallationSpec.getName() + "#" + theInstallationSpec.getVersion(), var5);
+			if (npmPackage == null) {
+				throw new IOException(Msg.code(1284) + "Package not found");
 			}
 
+			retVal.getMessage().addAll(JpaPackageCache.getProcessingMessages(npmPackage));
+			if (theInstallationSpec.isFetchDependencies()) {
+				fetchAndInstallDependencies(npmPackage, theInstallationSpec, retVal);
+			}
+
+			if (theInstallationSpec.getInstallMode() == PackageInstallationSpec.InstallModeEnum.STORE_AND_INSTALL) {
+				install(npmPackage, theInstallationSpec, retVal);
+			}
+			this.validationSupport.invalidateCaches();
+		} catch (IOException var5) {
+			throw new ImplementationGuideInstallationException(Msg.code(1285) + "Could not load NPM package " + theInstallationSpec.getName() + "#" + theInstallationSpec.getVersion(), var5);
+		}
 
 		return retVal;
 	}
@@ -147,8 +144,8 @@ public class CustomPackageInstallerSvcImpl extends PackageInstallerSvcImpl {
 			JsonObject dependenciesElement = npmPackage.getNpm().get("dependencies").asJsonObject();
 			Iterator var5 = dependenciesElement.getNames().iterator();
 
-			while(var5.hasNext()) {
-				String id = (String)var5.next();
+			while (var5.hasNext()) {
+				String id = (String) var5.next();
 				String ver = dependenciesElement.getJsonString(id).asString();
 
 				try {
@@ -158,15 +155,14 @@ public class CustomPackageInstallerSvcImpl extends PackageInstallerSvcImpl {
 					boolean skip = false;
 					Iterator var9 = theInstallationSpec.getDependencyExcludes().iterator();
 
-					while(var9.hasNext()) {
-						String next = (String)var9.next();
+					while (var9.hasNext()) {
+						String next = (String) var9.next();
 						if (id.matches(next)) {
 							theOutcome.getMessage().add("Not installing dependency " + id + " because it matches exclude criteria: " + next);
 							skip = true;
 							break;
 						}
 					}
-
 					if (!skip) {
 						NpmPackage dependency = this.myPackageCacheManager.loadPackage(id, ver);
 						this.fetchAndInstallDependencies(dependency, theInstallationSpec, theOutcome);
@@ -179,7 +175,6 @@ public class CustomPackageInstallerSvcImpl extends PackageInstallerSvcImpl {
 				}
 			}
 		}
-
 	}
 
 	private boolean isStructureDefinitionWithoutSnapshot(IBaseResource r) {
@@ -187,18 +182,16 @@ public class CustomPackageInstallerSvcImpl extends PackageInstallerSvcImpl {
 		FhirTerser terser = this.myFhirContext.newTerser();
 		if (r.getClass().getSimpleName().equals("StructureDefinition")) {
 			Optional<String> kind = terser.getSinglePrimitiveValue(r, "kind");
-			if (kind.isPresent() && !((String)kind.get()).equals("logical")) {
+			if (kind.isPresent() && !((String) kind.get()).equals("logical")) {
 				retVal = terser.getSingleValueOrNull(r, "snapshot") == null;
 			}
 		}
-
 		return retVal;
 	}
 
-
 	private IBaseResource generateSnapshot(IBaseResource sd) {
 		try {
-			return this.validationSupport.generateSnapshot(new ValidationSupportContext(this.validationSupport), sd, (String)null, (String)null, (String)null);
+			return this.validationSupport.generateSnapshot(new ValidationSupportContext(this.validationSupport), sd, (String) null, (String) null, (String) null);
 		} catch (Exception var3) {
 			throw new ImplementationGuideInstallationException(Msg.code(1290) + String.format("Failure when generating snapshot of StructureDefinition: %s", sd.getIdElement()), var3);
 		}
@@ -211,17 +204,17 @@ public class CustomPackageInstallerSvcImpl extends PackageInstallerSvcImpl {
 			List<IPrimitiveType> statusTypes = this.myFhirContext.newFhirPath().evaluate(theResource, "status", IPrimitiveType.class);
 			if (statusTypes.isEmpty()) {
 				return true;
-			} else if (((IPrimitiveType)statusTypes.get(0)).getValue() == null) {
+			} else if (((IPrimitiveType) statusTypes.get(0)).getValue() == null) {
 				return false;
 			} else {
 				switch (theResource.fhirType()) {
 					case "Subscription":
-						return ((IPrimitiveType)statusTypes.get(0)).getValueAsString().equals("requested");
+						return ((IPrimitiveType) statusTypes.get(0)).getValueAsString().equals("requested");
 					case "DocumentReference":
 					case "Communication":
-						return !((IPrimitiveType)statusTypes.get(0)).getValueAsString().equals("?");
+						return !((IPrimitiveType) statusTypes.get(0)).getValueAsString().equals("?");
 					default:
-						return ((IPrimitiveType)statusTypes.get(0)).getValueAsString().equals("active");
+						return ((IPrimitiveType) statusTypes.get(0)).getValueAsString().equals("active");
 				}
 			}
 		}
@@ -232,60 +225,62 @@ public class CustomPackageInstallerSvcImpl extends PackageInstallerSvcImpl {
 		if ("SearchParameter".equals(resourceType)) {
 			String code = SearchParameterUtil.getCode(this.myFhirContext, theResource);
 			if (!StringUtils.isBlank(code) && code.startsWith("_")) {
-//				ourLog.warn("Failed to validate resource of type {} with url {} - Error: Resource code starts with \"_\"", theResource.fhirType(), SearchParameterUtil.getURL(this.myFhirContext, theResource));
+				ourLog.warn("Failed to validate resource of type {} with url {} - Error: Resource code starts with \"_\"", theResource.fhirType(), SearchParameterUtil.getURL(this.myFhirContext, theResource));
 				return false;
 			}
 
 			String expression = SearchParameterUtil.getExpression(this.myFhirContext, theResource);
 			if (StringUtils.isBlank(expression)) {
-//				ourLog.warn("Failed to validate resource of type {} with url {} - Error: Resource expression is blank", theResource.fhirType(), SearchParameterUtil.getURL(this.myFhirContext, theResource));
+				ourLog.warn("Failed to validate resource of type {} with url {} - Error: Resource expression is blank", theResource.fhirType(), SearchParameterUtil.getURL(this.myFhirContext, theResource));
 				return false;
 			}
 
 			if (SearchParameterUtil.getBaseAsStrings(this.myFhirContext, theResource).isEmpty()) {
-//				ourLog.warn("Failed to validate resource of type {} with url {} - Error: Resource base is empty", theResource.fhirType(), SearchParameterUtil.getURL(this.myFhirContext, theResource));
+				ourLog.warn("Failed to validate resource of type {} with url {} - Error: Resource base is empty", theResource.fhirType(), SearchParameterUtil.getURL(this.myFhirContext, theResource));
 				return false;
 			}
 		}
 
 		if (!this.isValidResourceStatusForPackageUpload(theResource)) {
-//			ourLog.warn("Failed to validate resource of type {} with ID {} - Error: Resource status not accepted value.", theResource.fhirType(), theResource.getIdElement().getValue());
+			ourLog.warn("Failed to validate resource of type {} with ID {} - Error: Resource status not accepted value.", theResource.fhirType(), theResource.getIdElement().getValue());
 			return false;
 		} else {
 			return true;
 		}
 	}
+
 	private Object extractValue(IBase theResource, String thePath) {
 		return this.myFhirContext.newTerser().getSingleValueOrNull(theResource, thePath);
 	}
 
 	private String extractSimpleValue(IBase theResource, String thePath) {
-		IPrimitiveType<?> asPrimitiveType = (IPrimitiveType)this.extractValue(theResource, thePath);
-		return (String)asPrimitiveType.getValue();
+		IPrimitiveType<?> asPrimitiveType = (IPrimitiveType) this.extractValue(theResource, thePath);
+		return (String) asPrimitiveType.getValue();
 	}
 
 	private String extractUniqeIdFromNamingSystem(IBaseResource theResource) {
-		IBase uniqueIdComponent = (IBase)this.extractValue(theResource, "uniqueId");
+		IBase uniqueIdComponent = (IBase) this.extractValue(theResource, "uniqueId");
 		if (uniqueIdComponent == null) {
 			throw new ImplementationGuideInstallationException(Msg.code(1291) + "NamingSystem does not have uniqueId component.");
 		} else {
 			return this.extractSimpleValue(uniqueIdComponent, "value");
 		}
 	}
+
 	private boolean resourceHasUrlElement(IBaseResource resource) {
 		BaseRuntimeElementDefinition<?> def = this.myFhirContext.getElementDefinition(resource.getClass());
 		if (!(def instanceof BaseRuntimeElementCompositeDefinition)) {
 			String var10002 = Msg.code(1293);
 			throw new IllegalArgumentException(var10002 + "Resource is not a composite type: " + resource.getClass().getName());
 		} else {
-			BaseRuntimeElementCompositeDefinition<?> currentDef = (BaseRuntimeElementCompositeDefinition)def;
+			BaseRuntimeElementCompositeDefinition<?> currentDef = (BaseRuntimeElementCompositeDefinition) def;
 			BaseRuntimeChildDefinition nextDef = currentDef.getChildByName("url");
 			return nextDef != null;
 		}
 	}
 
 	private TokenParam extractIdentifierFromOtherResourceTypes(IBaseResource theResource) {
-		Identifier identifier = (Identifier)this.extractValue(theResource, "identifier");
+		Identifier identifier = (Identifier) this.extractValue(theResource, "identifier");
 		if (identifier != null) {
 			return new TokenParam(identifier.getSystem(), identifier.getValue());
 		} else {
@@ -293,11 +288,10 @@ public class CustomPackageInstallerSvcImpl extends PackageInstallerSvcImpl {
 		}
 	}
 
-
 	private SearchParameterMap buildSearchParameterMapForSearchParameter(IBaseResource theResource) {
 		Optional<SearchParameterMap> spmFromCanonicalized = this.mySearchParameterHelper.buildSearchParameterMapFromCanonical(theResource);
 		if (spmFromCanonicalized.isPresent()) {
-			return (SearchParameterMap)spmFromCanonicalized.get();
+			return (SearchParameterMap) spmFromCanonicalized.get();
 		} else if (this.resourceHasUrlElement(theResource)) {
 			String url = this.extractSimpleValue(theResource, "url");
 			return SearchParameterMap.newSynchronous().add("url", new UriParam(url));
@@ -327,7 +321,6 @@ public class CustomPackageInstallerSvcImpl extends PackageInstallerSvcImpl {
 		}
 	}
 
-
 	private RequestDetails createRequestDetails() {
 		SystemRequestDetails requestDetails = new SystemRequestDetails();
 		if (this.myPartitionSettings.isPartitioningEnabled()) {
@@ -344,7 +337,7 @@ public class CustomPackageInstallerSvcImpl extends PackageInstallerSvcImpl {
 	@VisibleForTesting
 	void install(IBaseResource theResource, PackageInstallationSpec theInstallationSpec, PackageInstallOutcomeJson theOutcome) {
 		if (!this.validForUpload(theResource)) {
-//			ourLog.warn("Failed to upload resource of type {} with ID {} - Error: Resource failed validation", theResource.fhirType(), theResource.getIdElement().getValue());
+			ourLog.warn("Failed to upload resource of type {} with ID {} - Error: Resource failed validation", theResource.fhirType(), theResource.getIdElement().getValue());
 		} else {
 			IFhirResourceDao dao = this.myDaoRegistry.getResourceDao(theResource.getClass());
 			SearchParameterMap map = this.createSearchParameterMapFor(theResource);
@@ -357,12 +350,11 @@ public class CustomPackageInstallerSvcImpl extends PackageInstallerSvcImpl {
 					ourLog.info("Updating existing resource matching {}", resourceQuery);
 				}
 
-				IBaseResource existingResource = !searchResult.isEmpty() ? (IBaseResource)searchResult.getResources(0, 1).get(0) : null;
+				IBaseResource existingResource = !searchResult.isEmpty() ? (IBaseResource) searchResult.getResources(0, 1).get(0) : null;
 				boolean isInstalled = this.createOrUpdateResource(dao, theResource, existingResource);
 				if (isInstalled) {
 					theOutcome.incrementResourcesInstalled(this.myFhirContext.getResourceType(theResource));
 				}
-
 			}
 		}
 	}
@@ -379,20 +371,16 @@ public class CustomPackageInstallerSvcImpl extends PackageInstallerSvcImpl {
 		} else {
 			installTypes = PackageUtils.DEFAULT_INSTALL_TYPES;
 		}
-
 		ourLog.info("Installing package: {}#{}", name, version);
 		int[] count = new int[installTypes.size()];
-
 		int i;
-		for(i = 0; i < installTypes.size(); ++i) {
-			String type = (String)installTypes.get(i);
+		for (i = 0; i < installTypes.size(); ++i) {
+			String type = (String) installTypes.get(i);
 			Collection<IBaseResource> resources = this.myPackageResourceParsingSvc.parseResourcesOfType(type, npmPackage);
 			count[i] = resources.size();
 			Iterator var13 = resources.iterator();
-
-			while(var13.hasNext()) {
-				IBaseResource next = (IBaseResource)var13.next();
-
+			while (var13.hasNext()) {
+				IBaseResource next = (IBaseResource) var13.next();
 				try {
 					next = this.isStructureDefinitionWithoutSnapshot(next) ? this.generateSnapshot(next) : next;
 					this.install(next, theInstallationSpec, theOutcome);
@@ -402,22 +390,9 @@ public class CustomPackageInstallerSvcImpl extends PackageInstallerSvcImpl {
 				}
 			}
 		}
-
 		ourLog.info(String.format("Finished installation of package %s#%s:", name, version));
-
-		for(i = 0; i < count.length; ++i) {
+		for (i = 0; i < count.length; ++i) {
 			ourLog.info(String.format("-- Created or updated %s resources of type %s", count[i], installTypes.get(i)));
 		}
-
-	}
-
-
-	// Getter and Setter methods for installedPackage
-	public NpmPackage getInstalledPackage() {
-		return installedPackage;
-	}
-
-	public void setInstalledPackage(NpmPackage installedPackage) {
-		this.installedPackage = installedPackage;
 	}
 }

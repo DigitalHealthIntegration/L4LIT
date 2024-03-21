@@ -83,6 +83,8 @@ public class AppProperties {
   private Map<String, PackageInstallationSpec> implementationGuides = null;
 
   private String custom_content_path = null;
+
+  private String fhir_baseUrl = null;
   private String app_content_path = null;
 
   private Boolean lastn_enabled = false;
@@ -110,7 +112,13 @@ public class AppProperties {
 		return custom_provider_classes;
 	}
 
+	public String getFhir_baseUrl() {
+		return fhir_baseUrl;
+	}
 
+	public void setFhir_baseUrl(String fhir_baseUrl) {
+		this.fhir_baseUrl = fhir_baseUrl;
+	}
 	public Boolean getOpenapi_enabled() {
 		return openapi_enabled;
 	}

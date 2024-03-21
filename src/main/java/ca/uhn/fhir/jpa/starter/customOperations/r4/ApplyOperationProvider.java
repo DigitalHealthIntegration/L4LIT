@@ -1,22 +1,30 @@
 package ca.uhn.fhir.jpa.starter.customOperations.r4;
 
-import ca.uhn.fhir.jpa.rp.r4.PlanDefinitionResourceProvider;
 import ca.uhn.fhir.rest.annotation.IdParam;
 import ca.uhn.fhir.rest.annotation.Operation;
 import ca.uhn.fhir.rest.annotation.OperationParam;
-import ca.uhn.fhir.rest.server.IResourceProvider;
+import ca.uhn.fhir.rest.server.exceptions.ResourceNotFoundException;
 import org.apache.commons.lang3.StringUtils;
 import org.hl7.fhir.instance.model.api.IBaseResource;
+import org.hl7.fhir.r4.model.CarePlan;
 import org.hl7.fhir.r4.model.IdType;
-import org.hl7.fhir.r4.model.Patient;
 import org.hl7.fhir.r4.model.PlanDefinition;
-import org.hl7.fhir.r4.model.StringType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.io.IOException;
 
 @Service
 public class ApplyOperationProvider {
 
-	R4FhirOperationHelper helper = new R4FhirOperationHelper();
+	@Autowired
+	private R4FhirOperationHelper helper;
+
+	private static final Logger logger = LoggerFactory.getLogger(ApplyOperationProvider.class);
+
+
 
 	// Define an instance-level operation method
 	@Operation(name = "$apply", idempotent = true, global = true, type = PlanDefinition.class)
@@ -24,24 +32,33 @@ public class ApplyOperationProvider {
 		@IdParam IdType theId,
 		@OperationParam(name = "subject", min = 1, max = 1) String subject) {
 
-		// Retrieve the ID of the patient from theId parameter
+		try {
+			String patientId = extractPatientId(subject);
+			// Validate patientId is not null
+			if (patientId == null) {
+				throw new IllegalArgumentException("Patient ID is required.");
+			}
 
-		String planDefinitionId = theId.getIdPart();
-		String patientId = extractPatientId(subject);
-
-
-		return helper.generateCarePlan(
-			patientId,
-			theId.toString(),
-			null, // encounterId
-			null, // practitionerId
-			null, // organizationId
-			null, // userType
-			null, // userLanguage
-			null, // userTaskContext
-			null, // setting
-			null // settingContext
-		);
+			return helper.generateCarePlan(
+				patientId,
+				theId.toString(),
+				null, // encounterId
+				null, // practitionerId
+				null, // organizationId
+				null, // userType
+				null, // userLanguage
+				null, // userTaskContext
+				null, // setting
+				null // settingContext
+			);
+		} catch (ResourceNotFoundException resourceNotFoundException) {
+			// Handle ResourceNotFoundException
+			logger.error("Resource not found: {}", resourceNotFoundException.getMessage());
+		} catch (Exception exception) {
+			// Catch any other unexpected exceptions
+			logger.error("An error occurred: {}", exception.getMessage());
+		}
+		return new CarePlan();
 	}
 
 	private String extractPatientId(String subject) {

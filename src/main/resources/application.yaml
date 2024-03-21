@@ -73,7 +73,7 @@ hapi:
     ### Flag is false by default. This flag enables runtime installation of IG's.
     ig_runtime_upload_enabled: true
     ### This flag when enabled to true, will avail evaluate measure operations from CR Module.
-
+    fhir_baseUrl: http://localhost:8080/fhir
     ### enable to use the ApacheProxyAddressStrategy which uses X-Forwarded-* headers
     ### to determine the FHIR server address
     #   use_apache_address_strategy: false

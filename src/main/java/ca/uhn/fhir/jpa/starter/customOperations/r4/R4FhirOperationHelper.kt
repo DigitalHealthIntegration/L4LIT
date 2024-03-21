@@ -1,15 +1,24 @@
 package ca.uhn.fhir.jpa.starter.customOperations.r4
 
 import ca.uhn.fhir.context.FhirContext
+import ca.uhn.fhir.jpa.starter.AppProperties
 import ca.uhn.fhir.jpa.starter.customOperations.r4.r4mapping.R4ResourceMapper
 import ca.uhn.fhir.jpa.starter.customOperations.r4.r4mapping.R4StructureMapExtractionContext
-//import ca.uhn.fhir.jpa.starter.customOperations.services.HelperService
 import org.hl7.fhir.instance.model.api.IBaseBundle
 import org.hl7.fhir.instance.model.api.IBaseDatatype
 import org.hl7.fhir.instance.model.api.IBaseResource
 import org.hl7.fhir.r4.context.IWorkerContext
 import org.hl7.fhir.r4.context.SimpleWorkerContext
-import org.hl7.fhir.r4.model.*
+import org.hl7.fhir.r4.model.Endpoint
+import org.hl7.fhir.r4.model.ResourceType
+import org.hl7.fhir.r4.model.Questionnaire
+import org.hl7.fhir.r4.model.QuestionnaireResponse
+import org.hl7.fhir.r4.model.Bundle
+import org.hl7.fhir.r4.model.Reference
+import org.hl7.fhir.r4.model.Measure
+import org.hl7.fhir.r4.model.MeasureReport
+import org.hl7.fhir.r4.model.CanonicalType
+import org.hl7.fhir.r4.model.IdType
 import org.hl7.fhir.utilities.npm.NpmPackage
 import org.opencds.cqf.fhir.cql.EvaluationSettings
 import org.opencds.cqf.fhir.cr.measure.MeasureEvaluationOptions
@@ -18,15 +27,16 @@ import org.opencds.cqf.fhir.cr.plandefinition.PlanDefinitionProcessor
 import org.opencds.cqf.fhir.utility.Ids
 import org.opencds.cqf.fhir.utility.monad.Eithers
 import org.opencds.cqf.fhir.utility.repository.Repositories
-import org.opencds.cqf.fhir.utility.repository.ig.IgRepository
-import org.slf4j.LoggerFactory
-import org.springframework.core.io.ClassPathResource
-import java.nio.file.Path
-import java.nio.file.Paths
-open class R4FhirOperationHelper {
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.stereotype.Service
+@Service
+open class R4FhirOperationHelper  @Autowired constructor(private val appProperties: AppProperties) {
+
     private val fhirContextR4 = FhirContext.forR4Cached()
     private val evaluationSettings: EvaluationSettings = EvaluationSettings.getDefault()
-
+    private val endpoint = Endpoint().apply {
+        address = appProperties.fhir_baseUrl
+    }
 
      fun generateCarePlan(
         subject: String,
@@ -40,10 +50,6 @@ open class R4FhirOperationHelper {
         setting: IBaseDatatype? = null,
         settingContext: IBaseDatatype? = null
     ): IBaseResource {
-         val endpoint = Endpoint().apply {
-             address = "http://localhost:8080/fhir"
-         }
-
          val restRepository = Repositories.createRestRepository(fhirContextR4,endpoint)
          val planDefinitionProcessor = PlanDefinitionProcessor(restRepository, evaluationSettings)
 
@@ -93,50 +99,51 @@ open class R4FhirOperationHelper {
         }
         return simpleWorkerContext
     }
-//
-////    fun evaluateMeasure(
-////        measureId: String,
-////        start: String,
-////        end: String,
-////        reportType: String,
-////        subjectId: String? = null,
-////        practitioner: String? = null,
-////        additionalData: IBaseBundle? = null,
-////    ): MeasureReport {
-////
-////        val subject =
-////            if (!subjectId.isNullOrBlank()) {
-////                checkAndAddType(subjectId, "Patient")
-////            } else if (!practitioner.isNullOrBlank()) {
-////                checkAndAddType(practitioner, "Practitioner")
-////            } else {
-////                // List of null is required to run population-level measures
-////                null
-////            }
-////
-////        val report =
-////            measureProcessor.evaluateMeasure(
-////                /* measure = */ Eithers.forMiddle3<CanonicalType, IdType, Measure>(IdType("Measure", measureId)),
-////                /* periodStart = */ start,
-////                /* periodEnd = */ end,
-////                /* reportType = */ reportType,
-////                /* subjectIds = */ listOf(subject),
-////                /* additionalData = */ additionalData,
-////               null
-////            )
-////
-////        // add subject reference for non-individual reportTypes
-////        if (report.type.name == "SUMMARY" && !subject.isNullOrBlank()) {
-////            report.subject = Reference(subject)
-////        }
-////        return report
-////    }
-//
-//    /** Checks if the Resource ID contains a type and if not, adds a default type */
-//    private fun checkAndAddType(id: String, defaultType: String): String {
-//        return if (id.indexOf("/") == -1) "$defaultType/$id" else id
-//    }
-//
-//
-//
+
+    fun evaluateMeasure(
+        measureId: String,
+        start: String?,
+        end: String?,
+        reportType: String?,
+        subjectId: String? = null,
+        practitioner: String? = null,
+        additionalData: IBaseBundle? = null,
+    ): MeasureReport {
+        val restRepository = Repositories.createRestRepository(fhirContextR4,endpoint)
+        val measureEvaluationOptions =MeasureEvaluationOptions().apply { evaluationSettings = this@R4FhirOperationHelper.evaluationSettings }
+        val measureProcessor = R4MeasureProcessor(restRepository, measureEvaluationOptions)
+
+        val subject =
+            if (!subjectId.isNullOrBlank()) {
+                checkAndAddType(subjectId, "Patient")
+            } else if (!practitioner.isNullOrBlank()) {
+                checkAndAddType(practitioner, "Practitioner")
+            } else {
+                // List of null is required to run population-level measures
+                null
+            }
+        val report =
+            measureProcessor.evaluateMeasure(
+                /* measure = */ Eithers.forMiddle3<CanonicalType, IdType, Measure>(IdType("Measure", measureId)),
+                /* periodStart = */ start,
+                /* periodEnd = */ end,
+                /* reportType = */ reportType,
+                /* subjectIds = */ listOf(subject),
+                /* additionalData = */ additionalData,
+               null
+            )
+        // add subject reference for non-individual reportTypes
+        if (report.type.name == "SUMMARY" && !subject.isNullOrBlank()) {
+            report.subject = Reference(subject)
+        }
+        return report
+    }
+
+    /** Checks if the Resource ID contains a type and if not, adds a default type */
+    private fun checkAndAddType(id: String, defaultType: String): String {
+        return if (id.indexOf("/") == -1) "$defaultType/$id" else id
+    }
+
+
+
 }

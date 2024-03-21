@@ -3,21 +3,12 @@ package ca.uhn.fhir.jpa.starter.ig;
 import ca.uhn.fhir.jpa.packages.IPackageInstallerSvc;
 import ca.uhn.fhir.jpa.packages.PackageInstallationSpec;
 import ca.uhn.fhir.jpa.starter.annotations.OnR4Condition;
-import ca.uhn.fhir.rest.annotation.IdParam;
 import ca.uhn.fhir.rest.annotation.Operation;
 import ca.uhn.fhir.rest.annotation.OperationParam;
-import ca.uhn.fhir.rest.annotation.RequiredParam;
-import ca.uhn.fhir.rest.api.server.RequestDetails;
-import ca.uhn.fhir.rest.param.ReferenceParam;
 import org.hl7.fhir.r4.model.Base64BinaryType;
-import org.hl7.fhir.r4.model.IdType;
-import org.hl7.fhir.r4.model.OperationOutcome;
 import org.hl7.fhir.r4.model.Parameters;
-import org.hl7.fhir.instance.model.api.IBaseResource;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.stereotype.Service;
-import ca.uhn.fhir.model.api.annotation.Description;
-import ca.uhn.fhir.jpa.starter.customOperations.r4.R4FhirOperationHelper;
 import java.io.IOException;
 
 @Conditional({OnR4Condition.class, IgConfigCondition.class})

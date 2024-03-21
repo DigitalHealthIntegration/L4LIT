@@ -37,10 +37,10 @@ object R4ResourceMapper {
         questionnaireResponse: QuestionnaireResponse,
         r4StructureMapExtractionContext: R4StructureMapExtractionContext,
     ): Bundle {
-//        val structureMapProvider = r4StructureMapExtractionContext.structureMapProvider
+        val structureMapProvider = r4StructureMapExtractionContext.structureMapProvider
         val simpleWorkerContext =
             r4StructureMapExtractionContext.workerContext.apply { setExpansionProfile(Parameters()) }
-        val structureMap = r4StructureMapExtractionContext.structureMap
+        val structureMap = structureMapProvider(questionnaire.targetStructureMap!!, simpleWorkerContext)
 
         return Bundle().apply {
             StructureMapUtilities(
