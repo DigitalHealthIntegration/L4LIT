@@ -3,9 +3,35 @@
 This project extends the HAPI FHIR JPA Server Starter and adds additional FHIR operations.
 
 
+
+## Getting Started with Docker: Starting Your Application
+
+To get started with this application, follow these steps:
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/DigitalHealthIntegration/L4LIT
+```
+
+2. Navigate to the project directory:
+
+```bash
+cd L4LIT
+```
+
+3. To start the application, run the following command in your terminal:
+
+```bash
+docker-compose up 
+```
+
+This will start the application and make it available at `http://localhost:8080`.
+
+
 ## Loading Implementation Guide
 
-You can load Implementation Guides into the HAPI FHIR JPA Server Starter through the `application.yaml` file. Below is the format for specifying Implementation Guides in the `application.yaml` file:
+You can load Implementation Guides into the HAPI FHIR JPA Server Starter through the [hapi_application.yaml](https://github.com/DigitalHealthIntegration/L4LIT/blob/main/configs/hapi_application.yaml) file. Below is the format for specifying Implementation Guides :
 
 ```yaml
 implementationguides:
@@ -17,15 +43,11 @@ implementationguides:
     installMode: STORE_AND_INSTALL
 ```
 
+## Import the postman collection 
 
 
-## Getting Started with Docker: Starting Your Application
+Import the Postman collection for testing the FHIR operations. Click here [Fhir Operations.postman_collection.json](https://github.com/DigitalHealthIntegration/L4LIT/blob/main/Fhir%20Operations.postman_collection.json) to access the collection file.
 
-To start the application, run the following command in your terminal:
-
-```bash
-docker-compose up --build -d
-```
 
 ## Additional FHIR Operations
 
