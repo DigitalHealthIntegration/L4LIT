@@ -37,7 +37,6 @@ open class R4FhirOperationHelper  @Autowired constructor(private val appProperti
     private val endpoint = Endpoint().apply {
         address = appProperties.fhir_baseUrl
     }
-
      fun generateCarePlan(
         subject: String,
         planDefinitionId: String,
@@ -66,7 +65,6 @@ open class R4FhirOperationHelper  @Autowired constructor(private val appProperti
             /* settingContext = */ settingContext
         ) as IBaseResource
     }
-
 
     suspend fun extract(
         questionnaire: Questionnaire,
@@ -143,7 +141,5 @@ open class R4FhirOperationHelper  @Autowired constructor(private val appProperti
     private fun checkAndAddType(id: String, defaultType: String): String {
         return if (id.indexOf("/") == -1) "$defaultType/$id" else id
     }
-
-
 
 }

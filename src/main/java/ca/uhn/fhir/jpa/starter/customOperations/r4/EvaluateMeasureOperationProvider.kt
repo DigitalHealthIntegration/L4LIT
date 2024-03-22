@@ -18,7 +18,6 @@ class EvaluateMeasureOperationProvider {
 
     private val logger = LoggerFactory.getLogger(ExtractOperationProvider::class.java)
 
-
     @Operation(name = "\$evaluate-measure", idempotent = true, global = true, type = Measure::class)
     fun evaluateMeasure(
         @IdParam theId: IdType,
@@ -30,7 +29,7 @@ class EvaluateMeasureOperationProvider {
     ): MeasureReport {
         try {
             val measureId = theId.idPart
-            return r4FhirOperationHelper.evaluateMeasure(measureId, start, end, reportType, subjectId, practitioner )
+            return r4FhirOperationHelper.evaluateMeasure(measureId, start, end, reportType, subjectId, practitioner)
         } catch (e: IllegalArgumentException) {
             // Handle validation failure
             logger.error("Validation failed: ${e.message}")

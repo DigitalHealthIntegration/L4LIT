@@ -108,13 +108,10 @@ public class CustomPackageInstallerSvcImpl extends PackageInstallerSvcImpl {
 
 	@Override
 	public PackageInstallOutcomeJson install(PackageInstallationSpec theInstallationSpec) throws ImplementationGuideInstallationException {
-		ourLog.info("Iam inside custom method to retrieve npmpackage");
 		PackageInstallOutcomeJson retVal = new PackageInstallOutcomeJson();
 
 		try {
 			NpmPackage npmPackage = this.myPackageCacheManager.installPackage(theInstallationSpec);
-			ourLog.info("Iam assigning installedPackage");
-			installedPackage = npmPackage;
 			helperService.installedNpmPackage = npmPackage;
 
 			if (npmPackage == null) {

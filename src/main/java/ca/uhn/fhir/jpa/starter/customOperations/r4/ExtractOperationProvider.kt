@@ -1,6 +1,7 @@
 package ca.uhn.fhir.jpa.starter.customOperations.r4
 
 import ca.uhn.fhir.jpa.starter.customOperations.r4.r4mapping.R4StructureMapExtractionContext
+import ca.uhn.fhir.jpa.starter.customOperations.r4.r4mapping.targetStructureMap
 import ca.uhn.fhir.jpa.starter.customOperations.services.HelperService
 import ca.uhn.fhir.rest.annotation.IdParam
 import ca.uhn.fhir.rest.annotation.Operation
@@ -12,7 +13,6 @@ import org.hl7.fhir.r4.model.Questionnaire
 import org.hl7.fhir.r4.model.StructureMap
 import org.hl7.fhir.r4.model.IdType
 import org.hl7.fhir.r4.model.Bundle
-import org.hl7.fhir.r4.model.CanonicalType
 import org.hl7.fhir.r4.utils.StructureMapUtilities
 import org.hl7.fhir.utilities.npm.NpmPackage
 import org.slf4j.LoggerFactory
@@ -21,15 +21,13 @@ import org.springframework.stereotype.Service
 import java.io.IOException
 
 @Service
-class ExtractOperationProvider  {
+class ExtractOperationProvider {
 
     @Autowired
     private lateinit var helperService: HelperService
 
     @Autowired
     private lateinit var r4FhirOperationHelper: R4FhirOperationHelper
-
-
 
     private val logger = LoggerFactory.getLogger(ExtractOperationProvider::class.java)
 
@@ -38,7 +36,6 @@ class ExtractOperationProvider  {
         @IdParam theId: IdType,
         @OperationParam(name = "theQuestionnaireResponse") theQuestionnaireResponse: QuestionnaireResponse
     ): Bundle {
-
         try {
             return runBlocking {
                 val measlesOutbreakPackage = helperService.installedNpmPackage
@@ -48,11 +45,11 @@ class ExtractOperationProvider  {
                 // Fetch resources
                 val questionnaire =
                     workerContext.fetchResource(Questionnaire::class.java, theQuestionnaireResponse.questionnaire)
-                        ?: throw ResourceNotFoundException("Questionnaire not found")
+                        ?: throw ResourceNotFoundException("Questionnaire Resource not found")
 
                 val structureMap =
                     workerContext.fetchResource(StructureMap::class.java, questionnaire.targetStructureMap!!)
-                        ?: throw ResourceNotFoundException("StructureMap not found")
+                        ?: throw ResourceNotFoundException("StructureMap Resource not found")
 
                 r4FhirOperationHelper.extract(
                     questionnaire,
@@ -75,30 +72,8 @@ class ExtractOperationProvider  {
             // Catch any other unexpected exceptions
             logger.error("An error occurred: ${exception.message}")
         }
-
-        // Return empty Bundle or handle the error according to your application's logic
+        // Return empty Bundle
         return Bundle()
     }
-
-
-    /**
-     * The StructureMap url in the
-     * [target structure-map extension](http://build.fhir.org/ig/HL7/sdc/StructureDefinition-sdc-questionnaire-targetStructureMap.html)
-     * s.
-     */
-    private val Questionnaire.targetStructureMap: String?
-        get() {
-            val extensionValue =
-                this.extension.singleOrNull { it.url == TARGET_STRUCTURE_MAP }?.value ?: return null
-            return if (extensionValue is CanonicalType) extensionValue.valueAsString else null
-        }
-
-    /**
-     * See
-     * [Extension: target structure map](http://build.fhir.org/ig/HL7/sdc/StructureDefinition-sdc-questionnaire-targetStructureMap.html)
-     * .
-     */
-    private val TARGET_STRUCTURE_MAP: String =
-        "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-targetStructureMap"
 
 }

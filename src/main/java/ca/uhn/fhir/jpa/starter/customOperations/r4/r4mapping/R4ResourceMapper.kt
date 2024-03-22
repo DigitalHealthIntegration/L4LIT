@@ -1,7 +1,6 @@
 package ca.uhn.fhir.jpa.starter.customOperations.r4.r4mapping
 
 import org.hl7.fhir.r4.model.Questionnaire
-import org.hl7.fhir.r4.model.CanonicalType
 import org.hl7.fhir.r4.model.Bundle
 import org.hl7.fhir.r4.model.QuestionnaireResponse
 import org.hl7.fhir.r4.model.Parameters
@@ -9,16 +8,6 @@ import org.hl7.fhir.r4.utils.StructureMapUtilities
 
 
 object R4ResourceMapper {
-
-    private const val TARGET_STRUCTURE_MAP: String =
-        "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-targetStructureMap"
-
-    private val Questionnaire.targetStructureMap: String?
-        get() {
-            val extensionValue =
-                this.extension.singleOrNull { it.url == R4ResourceMapper.TARGET_STRUCTURE_MAP }?.value ?: return null
-            return if (extensionValue is CanonicalType) extensionValue.valueAsString else null
-        }
 
     /**
      * Extracts FHIR resources from [questionnaireResponse] (as response to [questionnaire]) using

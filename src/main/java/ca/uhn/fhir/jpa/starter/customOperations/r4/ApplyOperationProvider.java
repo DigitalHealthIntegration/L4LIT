@@ -14,8 +14,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
-
 @Service
 public class ApplyOperationProvider {
 
@@ -24,9 +22,6 @@ public class ApplyOperationProvider {
 
 	private static final Logger logger = LoggerFactory.getLogger(ApplyOperationProvider.class);
 
-
-
-	// Define an instance-level operation method
 	@Operation(name = "$apply", idempotent = true, global = true, type = PlanDefinition.class)
 	public IBaseResource apply(
 		@IdParam IdType theId,
@@ -69,7 +64,6 @@ public class ApplyOperationProvider {
 		}
 		return null; // If subject parameter format is invalid
 	}
-
 
 }
 

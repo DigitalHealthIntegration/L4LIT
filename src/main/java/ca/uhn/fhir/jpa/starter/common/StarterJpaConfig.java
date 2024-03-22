@@ -225,7 +225,6 @@ public class StarterJpaConfig {
 		JobDefinitionRegistry jobDefinitionRegistry,
 		CustomPackageInstallerSvcImpl packageInstallerSvc) {
 		jobDefinitionRegistry.addJobDefinitionIfNotRegistered(reindexJobParametersJobDefinition);
-		System.out.println("inside packageInstaller");
 		if (appProperties.getImplementationGuides() != null) {
 			Map<String, PackageInstallationSpec> guides = appProperties.getImplementationGuides();
 			for (Map.Entry<String, PackageInstallationSpec> guidesEntry : guides.entrySet()) {

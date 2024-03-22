@@ -13,8 +13,6 @@ import org.hl7.fhir.r4.model.Resource
 import org.hl7.fhir.r4.terminologies.ConceptMapEngine
 import org.hl7.fhir.r4.utils.StructureMapUtilities
 
-
-
 class R4TransformSupportServicesLM(
     private val workerContext: IWorkerContext,
     private val outputs: MutableList<Base>,
