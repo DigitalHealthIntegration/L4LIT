@@ -98,6 +98,16 @@ hapi:
         version: 0.1.0
         reloadExisting: false
         installMode: STORE_AND_INSTALL
+        installResourceTypes:
+          - StructureMap
+          - StructureDefinition
+          - Questionnaire
+          - PlanDefinition
+          - Library
+          - ConceptMap
+          - CodeSystem
+          - ValueSet
+          - ActivityDefinition
 #      smart:
 #        packageUrl: https://worldhealthorganization.github.io/smart-ot/full-ig.zip
 #        name: fhir.worldhealthorganization.smart-ot

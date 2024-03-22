@@ -31,7 +31,7 @@ This will start the application and make it available at `http://localhost:8080`
 
 ## Loading Implementation Guide
 
-You can load Implementation Guides into the HAPI FHIR JPA Server Starter through the [hapi_application.yaml](https://github.com/DigitalHealthIntegration/L4LIT/blob/main/configs/hapi_application.yaml) file. Below is the format for specifying Implementation Guides :
+You can load Implementation Guides into the HAPI FHIR JPA Server Starter through the `configs/hapi_application.yaml` file. Below is the format for specifying Implementation Guides :
 
 ```yaml
 implementationguides:
@@ -41,12 +41,22 @@ implementationguides:
     version: 0.1.0
     reloadExisting: false
     installMode: STORE_AND_INSTALL
+    installResourceTypes:
+      - StructureMap
+      - StructureDefinition
+      - Questionnaire
+      - PlanDefinition
+      - Library
+      - ConceptMap
+      - CodeSystem
+      - ValueSet
+      - ActivityDefinition
 ```
 
 ## Import the postman collection 
 
 
-Import the Postman collection for testing the FHIR operations. Click here [Fhir Operations.postman_collection.json](https://github.com/DigitalHealthIntegration/L4LIT/blob/main/Fhir%20Operations.postman_collection.json) to access the collection file.
+Import the Postman collection for testing the FHIR operations. Click here `Fhir Operations.postman_collection.json` to access the collection file.
 
 
 ## Additional FHIR Operations
