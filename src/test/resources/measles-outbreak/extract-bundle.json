@@ -1,0 +1,906 @@
+{
+    "resourceType": "Bundle",
+    "id": "f610b924-567e-491c-b194-df5b40b5fe44",
+    "type": "document",
+    "entry": [
+        {
+            "fullUrl": "urn:uuid:4702d3f6-a0fd-4e33-b29a-0a41d1a57180",
+            "resource": {
+                "resourceType": "Composition",
+                "id": "4702d3f6-a0fd-4e33-b29a-0a41d1a57180",
+                "status": "final",
+                "type": {
+                    "coding": [
+                        {
+                            "system": "http://loinc.org",
+                            "code": "55751-2",
+                            "display": "Public health Case report"
+                        }
+                    ]
+                },
+                "subject": {
+                    "reference": "Patient/b5dee2c9-e27a-4d87-bc56-3c65b52bb53e"
+                },
+                "encounter": {
+                    "reference": "Encounter/344ba1e8-a46a-47c8-90cd-6a9ba0c200db"
+                },
+                "date": "2023-08-09",
+                "author": [
+                    {
+                        "reference": "Practitioner/4bf5648d-25a2-4c32-bee5-99b6ce5be7c4"
+                    },
+                    {
+                        "reference": "Organization/1642332e-3a09-430b-ad4f-5f60a424db87"
+                    }
+                ],
+                "title": "PAHO Measles Case Investigation Form",
+                "section": [
+                    {
+                        "title": "Clinical Data, Follow up and Treatment",
+                        "entry": [
+                            {
+                                "reference": "Observation/25faebee-314c-4566-ad90-49b889d09e2a"
+                            },
+                            {
+                                "reference": "Observation/4971cc25-728b-4622-9f84-f6f5d11f6491"
+                            },
+                            {
+                                "reference": "Observation/6f6eee6a-873b-4e2d-ad1d-5af2dc3c44da"
+                            },
+                            {
+                                "reference": "Observation/c8a91209-ce4e-43eb-b1f4-1ce848c6f4b2"
+                            },
+                            {
+                                "reference": "Observation/5d3820c9-98e1-4cf6-b38a-fd7ff3bad785"
+                            },
+                            {
+                                "reference": "Observation/29d83a4a-1305-4c30-ba6a-a8e9f6ce8038"
+                            },
+                            {
+                                "reference": "Observation/0bf76b8d-63b5-41d0-830b-30c8fb6235ea"
+                            },
+                            {
+                                "reference": "Observation/c334f33b-1df6-4486-aa0f-778f82538e77"
+                            },
+                            {
+                                "reference": "Observation/acb1e517-e845-4d90-a3a9-10eeda0466e9"
+                            },
+                            {
+                                "reference": "Observation/81df3936-cb79-4615-b932-e83ede5d13dd"
+                            },
+                            {
+                                "reference": "Observation/90a8873c-85f4-49c0-863d-e631ede9e462"
+                            },
+                            {
+                                "reference": "Observation/0481fdeb-d8f6-4dbb-aed2-2137a80dd0ae"
+                            },
+                            {
+                                "reference": "Encounter/52193391-e148-4e75-bd59-5477ca44b9fa"
+                            }
+                        ]
+                    },
+                    {
+                        "title": "Specimens & Laboratory Testing",
+                        "entry": [
+                            {
+                                "reference": "DiagnosticReport/08dec339-024c-4314-aa3b-58304f23faa4"
+                            },
+                            {
+                                "reference": "DiagnosticReport/791aa855-2af0-48a3-ba37-ad9f6db410c1"
+                            }
+                        ]
+                    },
+                    {
+                        "title": "Vaccination History",
+                        "entry": [
+                            {
+                                "reference": "Immunization/baa0fd84-b90f-416d-b544-cc55c4d564a6"
+                            },
+                            {
+                                "reference": "Immunization/eb9bbb4f-86d1-494a-bfd8-4cece75b9c71"
+                            }
+                        ]
+                    },
+                    {
+                        "title": "Classification",
+                        "entry": [
+                            {
+                                "reference": "Condition/44af6664-ec0d-430c-b8b7-f4bb5c0a3385"
+                            },
+                            {
+                                "reference": "RelatedPerson/a223cef3-a76f-494a-b094-e00a2e7a4abb"
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:b5dee2c9-e27a-4d87-bc56-3c65b52bb53e",
+            "resource": {
+                "resourceType": "Patient",
+                "id": "b5dee2c9-e27a-4d87-bc56-3c65b52bb53e",
+                "extension": [
+                    {
+                        "url": "http://worldhealthorganization.github.io/smart-ot/StructureDefinition/Landmark",
+                        "valueString": "Next the spot"
+                    },
+                    {
+                        "url": "http://worldhealthorganization.github.io/smart-ot/StructureDefinition/Guardian",
+                        "valueHumanName": {
+                            "family": "Mother Doe"
+                        }
+                    },
+                    {
+                        "url": "http://worldhealthorganization.github.io/smart-ot/StructureDefinition/Occupation",
+                        "valueString": "Busy"
+                    },
+                    {
+                        "url": "http://worldhealthorganization.github.io/smart-ot/StructureDefinition/WorkAddress",
+                        "valueAddress": {
+                            "text": "Workaddress"
+                        }
+                    }
+                ],
+                "name": [
+                    {
+                        "family": "John Doe"
+                    }
+                ],
+                "telecom": [
+                    {
+                        "value": "234phone"
+                    }
+                ],
+                "gender": "?",
+                "birthDate": "2014-08-07",
+                "address": [
+                    {
+                        "text": "Avenue"
+                    }
+                ]
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:4bf5648d-25a2-4c32-bee5-99b6ce5be7c4",
+            "resource": {
+                "resourceType": "Practitioner",
+                "id": "4bf5648d-25a2-4c32-bee5-99b6ce5be7c4",
+                "name": [
+                    {
+                        "text": "reporter"
+                    }
+                ]
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:1642332e-3a09-430b-ad4f-5f60a424db87",
+            "resource": {
+                "resourceType": "Organization",
+                "id": "1642332e-3a09-430b-ad4f-5f60a424db87",
+                "name": "hospital",
+                "contact": [
+                    {
+                        "telecom": [
+                            {
+                                "value": "123-phone"
+                            }
+                        ]
+                    },
+                    {
+                        "telecom": [
+                            {
+                                "value": "123-phone"
+                            }
+                        ]
+                    },
+                    {
+                        "telecom": [
+                            {
+                                "value": "123-phone"
+                            }
+                        ]
+                    },
+                    {
+                        "telecom": [
+                            {
+                                "value": "123-phone"
+                            }
+                        ]
+                    },
+                    {
+                        "telecom": [
+                            {
+                                "value": "123-phone"
+                            }
+                        ]
+                    },
+                    {
+                        "telecom": [
+                            {
+                                "value": "123-phone"
+                            }
+                        ]
+                    },
+                    {
+                        "telecom": [
+                            {
+                                "value": "123-phone"
+                            }
+                        ]
+                    },
+                    {
+                        "telecom": [
+                            {
+                                "value": "123-phone"
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:344ba1e8-a46a-47c8-90cd-6a9ba0c200db",
+            "resource": {
+                "resourceType": "Encounter",
+                "id": "344ba1e8-a46a-47c8-90cd-6a9ba0c200db",
+                "status": "finished",
+                "class": {
+                    "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+                    "code": "HH",
+                    "display": "home health"
+                },
+                "subject": {
+                    "reference": "Patient/b5dee2c9-e27a-4d87-bc56-3c65b52bb53e"
+                },
+                "period": {
+                    "start": "2023-08-10"
+                }
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:25faebee-314c-4566-ad90-49b889d09e2a",
+            "resource": {
+                "resourceType": "Observation",
+                "id": "25faebee-314c-4566-ad90-49b889d09e2a",
+                "status": "registered",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://worldhealthorganization.github.io/smart-ot/PAHO_MRCIF",
+                            "code": "DE66",
+                            "display": "Fever"
+                        }
+                    ]
+                },
+                "subject": {
+                    "reference": "Patient/b5dee2c9-e27a-4d87-bc56-3c65b52bb53e"
+                },
+                "effectivePeriod": {
+                    "start": "2023-09-04"
+                },
+                "valueCodeableConcept": {
+                    "coding": [
+                        {
+                            "system": "http://ritikarawlani.github.io/smart-outbreak-measles/YesNoUnknown",
+                            "code": "Yes",
+                            "display": "Yes"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:4971cc25-728b-4622-9f84-f6f5d11f6491",
+            "resource": {
+                "resourceType": "Observation",
+                "id": "4971cc25-728b-4622-9f84-f6f5d11f6491",
+                "status": "registered",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://worldhealthorganization.github.io/smart-ot/PAHO_MRCIF",
+                            "code": "DE70",
+                            "display": "Temperature"
+                        }
+                    ]
+                },
+                "subject": {
+                    "reference": "Patient/b5dee2c9-e27a-4d87-bc56-3c65b52bb53e"
+                }
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:6f6eee6a-873b-4e2d-ad1d-5af2dc3c44da",
+            "resource": {
+                "resourceType": "Observation",
+                "id": "6f6eee6a-873b-4e2d-ad1d-5af2dc3c44da",
+                "status": "registered",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://worldhealthorganization.github.io/smart-ot/RashType",
+                            "code": "Haemorrhagic",
+                            "display": "Haemorrhagic"
+                        }
+                    ]
+                },
+                "subject": {
+                    "reference": "Patient/b5dee2c9-e27a-4d87-bc56-3c65b52bb53e"
+                },
+                "effectivePeriod": {
+                    "start": "2023-09-04"
+                },
+                "valueCodeableConcept": {
+                    "coding": [
+                        {
+                            "system": "http://ritikarawlani.github.io/smart-outbreak-measles/YesNoUnknown",
+                            "code": "Yes",
+                            "display": "Yes"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:c8a91209-ce4e-43eb-b1f4-1ce848c6f4b2",
+            "resource": {
+                "resourceType": "Observation",
+                "id": "c8a91209-ce4e-43eb-b1f4-1ce848c6f4b2",
+                "status": "registered",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://worldhealthorganization.github.io/smart-ot/PAHO_MRCIF",
+                            "code": "DE84",
+                            "display": "Cough"
+                        }
+                    ]
+                },
+                "subject": {
+                    "reference": "Patient/b5dee2c9-e27a-4d87-bc56-3c65b52bb53e"
+                },
+                "valueCodeableConcept": {
+                    "coding": [
+                        {
+                            "system": "http://ritikarawlani.github.io/smart-outbreak-measles/YesNoUnknown",
+                            "code": "Yes",
+                            "display": "Yes"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:5d3820c9-98e1-4cf6-b38a-fd7ff3bad785",
+            "resource": {
+                "resourceType": "Observation",
+                "id": "5d3820c9-98e1-4cf6-b38a-fd7ff3bad785",
+                "status": "registered",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://worldhealthorganization.github.io/smart-ot/PAHO_MRCIF",
+                            "code": "DE88",
+                            "display": "Conjunctivitis"
+                        }
+                    ]
+                },
+                "subject": {
+                    "reference": "Patient/b5dee2c9-e27a-4d87-bc56-3c65b52bb53e"
+                },
+                "valueCodeableConcept": {
+                    "coding": [
+                        {
+                            "system": "http://ritikarawlani.github.io/smart-outbreak-measles/YesNoUnknown",
+                            "code": "Yes",
+                            "display": "Yes"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:29d83a4a-1305-4c30-ba6a-a8e9f6ce8038",
+            "resource": {
+                "resourceType": "Observation",
+                "id": "29d83a4a-1305-4c30-ba6a-a8e9f6ce8038",
+                "status": "registered",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://worldhealthorganization.github.io/smart-ot/PAHO_MRCIF",
+                            "code": "DE92",
+                            "display": "Coryza"
+                        }
+                    ]
+                },
+                "subject": {
+                    "reference": "Patient/b5dee2c9-e27a-4d87-bc56-3c65b52bb53e"
+                },
+                "valueCodeableConcept": {
+                    "coding": [
+                        {
+                            "system": "http://ritikarawlani.github.io/smart-outbreak-measles/YesNoUnknown",
+                            "code": "Yes",
+                            "display": "Yes"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:0bf76b8d-63b5-41d0-830b-30c8fb6235ea",
+            "resource": {
+                "resourceType": "Observation",
+                "id": "0bf76b8d-63b5-41d0-830b-30c8fb6235ea",
+                "status": "registered",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://worldhealthorganization.github.io/smart-ot/PAHO_MRCIF",
+                            "code": "DE96",
+                            "display": "Koplik Spots"
+                        }
+                    ]
+                },
+                "subject": {
+                    "reference": "Patient/b5dee2c9-e27a-4d87-bc56-3c65b52bb53e"
+                },
+                "valueCodeableConcept": {
+                    "coding": [
+                        {
+                            "system": "http://ritikarawlani.github.io/smart-outbreak-measles/YesNoUnknown",
+                            "code": "Yes",
+                            "display": "Yes"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:c334f33b-1df6-4486-aa0f-778f82538e77",
+            "resource": {
+                "resourceType": "Observation",
+                "id": "c334f33b-1df6-4486-aa0f-778f82538e77",
+                "status": "registered",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://worldhealthorganization.github.io/smart-ot/PAHO_MRCIF",
+                            "code": "DE100",
+                            "display": "Lymphadenopathy"
+                        }
+                    ]
+                },
+                "subject": {
+                    "reference": "Patient/b5dee2c9-e27a-4d87-bc56-3c65b52bb53e"
+                },
+                "valueCodeableConcept": {
+                    "coding": [
+                        {
+                            "system": "http://ritikarawlani.github.io/smart-outbreak-measles/YesNoUnknown",
+                            "code": "Yes",
+                            "display": "Yes"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:acb1e517-e845-4d90-a3a9-10eeda0466e9",
+            "resource": {
+                "resourceType": "Observation",
+                "id": "acb1e517-e845-4d90-a3a9-10eeda0466e9",
+                "status": "registered",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://worldhealthorganization.github.io/smart-ot/PAHO_MRCIF",
+                            "code": "DE104",
+                            "display": "Joint Pain"
+                        }
+                    ]
+                },
+                "subject": {
+                    "reference": "Patient/b5dee2c9-e27a-4d87-bc56-3c65b52bb53e"
+                },
+                "valueCodeableConcept": {
+                    "coding": [
+                        {
+                            "system": "http://ritikarawlani.github.io/smart-outbreak-measles/YesNoUnknown",
+                            "code": "Yes",
+                            "display": "Yes"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:81df3936-cb79-4615-b932-e83ede5d13dd",
+            "resource": {
+                "resourceType": "Observation",
+                "id": "81df3936-cb79-4615-b932-e83ede5d13dd",
+                "status": "registered",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://worldhealthorganization.github.io/smart-ot/PAHO_MRCIF",
+                            "code": "DE108",
+                            "display": "Pregnancy"
+                        }
+                    ]
+                },
+                "subject": {
+                    "reference": "Patient/b5dee2c9-e27a-4d87-bc56-3c65b52bb53e"
+                },
+                "valueCodeableConcept": {
+                    "coding": [
+                        {
+                            "system": "http://ritikarawlani.github.io/smart-outbreak-measles/YesNoUnknown",
+                            "code": "Yes",
+                            "display": "Yes"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:90a8873c-85f4-49c0-863d-e631ede9e462",
+            "resource": {
+                "resourceType": "Observation",
+                "id": "90a8873c-85f4-49c0-863d-e631ede9e462",
+                "status": "registered",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://worldhealthorganization.github.io/smart-ot/PAHO_MRCIF",
+                            "code": "DE112",
+                            "display": "Weeks Pregnant"
+                        }
+                    ]
+                },
+                "subject": {
+                    "reference": "Patient/b5dee2c9-e27a-4d87-bc56-3c65b52bb53e"
+                }
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:0481fdeb-d8f6-4dbb-aed2-2137a80dd0ae",
+            "resource": {
+                "resourceType": "Observation",
+                "id": "0481fdeb-d8f6-4dbb-aed2-2137a80dd0ae",
+                "status": "registered",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://worldhealthorganization.github.io/smart-ot/PAHO_MRCIF",
+                            "code": "DE121",
+                            "display": "Outcome"
+                        }
+                    ]
+                },
+                "subject": {
+                    "reference": "Patient/b5dee2c9-e27a-4d87-bc56-3c65b52bb53e"
+                },
+                "valueCodeableConcept": {
+                    "coding": [
+                        {
+                            "system": "http://ritikarawlani.github.io/smart-outbreak-measles/PatientOutcome",
+                            "code": "Sick",
+                            "display": "Still sick"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:52193391-e148-4e75-bd59-5477ca44b9fa",
+            "resource": {
+                "resourceType": "Encounter",
+                "id": "52193391-e148-4e75-bd59-5477ca44b9fa",
+                "status": "finished",
+                "class": {
+                    "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+                    "code": "IMP",
+                    "display": "inpatient encounter"
+                },
+                "subject": {
+                    "reference": "Patient/b5dee2c9-e27a-4d87-bc56-3c65b52bb53e"
+                },
+                "period": {
+                    "start": "2023-09-04"
+                }
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:08dec339-024c-4314-aa3b-58304f23faa4",
+            "resource": {
+                "resourceType": "DiagnosticReport",
+                "id": "08dec339-024c-4314-aa3b-58304f23faa4",
+                "status": "registered",
+                "subject": {
+                    "reference": "Patient/b5dee2c9-e27a-4d87-bc56-3c65b52bb53e"
+                },
+                "effectiveDateTime": "2023-09-26",
+                "performer": [
+                    {
+                        "reference": "Organization/d0a5fecf-0249-460c-9a6b-91a4ab2f8205"
+                    }
+                ],
+                "specimen": [
+                    {
+                        "reference": "Specimen/7576d2c3-c7c7-4540-8f55-441d95e774bd"
+                    }
+                ],
+                "result": [
+                    {
+                        "reference": "Observation/b8359ad9-e464-40c8-9005-5602e17021c6"
+                    }
+                ]
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:7576d2c3-c7c7-4540-8f55-441d95e774bd",
+            "resource": {
+                "resourceType": "Specimen",
+                "id": "7576d2c3-c7c7-4540-8f55-441d95e774bd",
+                "identifier": [
+                    {
+                        "value": "3456666"
+                    }
+                ],
+                "receivedTime": "2023-09-25",
+                "collection": {
+                    "collectedDateTime": "2023-08-29"
+                }
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:d0a5fecf-0249-460c-9a6b-91a4ab2f8205",
+            "resource": {
+                "resourceType": "Organization",
+                "id": "d0a5fecf-0249-460c-9a6b-91a4ab2f8205",
+                "name": "Lab name"
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:b8359ad9-e464-40c8-9005-5602e17021c6",
+            "resource": {
+                "resourceType": "Observation",
+                "id": "b8359ad9-e464-40c8-9005-5602e17021c6",
+                "status": "registered",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://ritikarawlani.github.io/smart-outbreak-measles/Antigen",
+                            "code": "1",
+                            "display": "Measles"
+                        }
+                    ]
+                },
+                "subject": {
+                    "reference": "Patient/b5dee2c9-e27a-4d87-bc56-3c65b52bb53e"
+                },
+                "effectiveDateTime": "2023-09-26",
+                "valueCodeableConcept": {
+                    "coding": [
+                        {
+                            "system": "http://ritikarawlani.github.io/smart-outbreak-measles/Result",
+                            "code": "0",
+                            "display": "Negative"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:791aa855-2af0-48a3-ba37-ad9f6db410c1",
+            "resource": {
+                "resourceType": "DiagnosticReport",
+                "id": "791aa855-2af0-48a3-ba37-ad9f6db410c1",
+                "status": "registered",
+                "subject": {
+                    "reference": "Patient/b5dee2c9-e27a-4d87-bc56-3c65b52bb53e"
+                },
+                "effectiveDateTime": "2023-10-24",
+                "performer": [
+                    {
+                        "reference": "Organization/dfddc21b-c7bb-4736-a002-afb4da4f5c7b"
+                    }
+                ],
+                "specimen": [
+                    {
+                        "reference": "Specimen/52990ca7-182a-4d04-b302-6a5502f9398c"
+                    }
+                ],
+                "result": [
+                    {
+                        "reference": "Observation/25d3cc7b-741b-4b3f-ab11-af3a3f2593af"
+                    }
+                ]
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:52990ca7-182a-4d04-b302-6a5502f9398c",
+            "resource": {
+                "resourceType": "Specimen",
+                "id": "52990ca7-182a-4d04-b302-6a5502f9398c",
+                "identifier": [
+                    {
+                        "value": "232456"
+                    }
+                ],
+                "receivedTime": "2023-10-10",
+                "collection": {
+                    "collectedDateTime": "2023-10-10"
+                }
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:dfddc21b-c7bb-4736-a002-afb4da4f5c7b",
+            "resource": {
+                "resourceType": "Organization",
+                "id": "dfddc21b-c7bb-4736-a002-afb4da4f5c7b",
+                "name": "dr pathlabs"
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:25d3cc7b-741b-4b3f-ab11-af3a3f2593af",
+            "resource": {
+                "resourceType": "Observation",
+                "id": "25d3cc7b-741b-4b3f-ab11-af3a3f2593af",
+                "status": "registered",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://worldhealthorganization.github.io/smart-ot/Antigen",
+                            "code": "1",
+                            "display": "Measles"
+                        }
+                    ]
+                },
+                "subject": {
+                    "reference": "Patient/b5dee2c9-e27a-4d87-bc56-3c65b52bb53e"
+                },
+                "effectiveDateTime": "2023-10-24",
+                "valueCodeableConcept": {
+                    "coding": [
+                        {
+                            "system": "http://worldhealthorganization.github.io/smart-ot/Result",
+                            "code": "0",
+                            "display": "Negative"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:baa0fd84-b90f-416d-b544-cc55c4d564a6",
+            "resource": {
+                "resourceType": "Immunization",
+                "id": "baa0fd84-b90f-416d-b544-cc55c4d564a6",
+                "status": "completed",
+                "vaccineCode": {
+                    "coding": [
+                        {
+                            "system": "http://ritikarawlani.github.io/smart-outbreak-measles/VaccineType",
+                            "code": "1",
+                            "display": "Measles"
+                        }
+                    ]
+                },
+                "patient": {
+                    "reference": "Patient/b5dee2c9-e27a-4d87-bc56-3c65b52bb53e"
+                },
+                "reportOrigin": {
+                    "coding": [
+                        {
+                            "system": "http://ritikarawlani.github.io/smart-outbreak-measles/SourceOfInformation",
+                            "code": "Vaccinationcard",
+                            "display": "Vaccination card"
+                        }
+                    ]
+                },
+                "protocolApplied": [
+                    {
+                        "series": "Two dose"
+                    }
+                ]
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:eb9bbb4f-86d1-494a-bfd8-4cece75b9c71",
+            "resource": {
+                "resourceType": "Immunization",
+                "id": "eb9bbb4f-86d1-494a-bfd8-4cece75b9c71",
+                "status": "completed",
+                "vaccineCode": {
+                    "coding": [
+                        {
+                            "system": "http://ritikarawlani.github.io/smart-outbreak-measles/VaccineType",
+                            "code": "2",
+                            "display": "Rubella"
+                        }
+                    ]
+                },
+                "patient": {
+                    "reference": "Patient/b5dee2c9-e27a-4d87-bc56-3c65b52bb53e"
+                },
+                "occurrenceDateTime": "2023-09-04",
+                "reportOrigin": {
+                    "coding": [
+                        {
+                            "system": "http://ritikarawlani.github.io/smart-outbreak-measles/SourceOfInformation",
+                            "code": "HealthServices",
+                            "display": "Health Services"
+                        }
+                    ]
+                },
+                "protocolApplied": [
+                    {
+                        "series": "One dose"
+                    }
+                ]
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:44af6664-ec0d-430c-b8b7-f4bb5c0a3385",
+            "resource": {
+                "resourceType": "Condition",
+                "id": "44af6664-ec0d-430c-b8b7-f4bb5c0a3385",
+                "verificationStatus": {
+                    "coding": [
+                        {
+                            "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+                            "code": "confirmed",
+                            "display": "Confirmed"
+                        }
+                    ]
+                },
+                "category": [
+                    {
+                        "coding": [
+                            {
+                                "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+                                "code": "encounter-diagnosis",
+                                "display": "Encounter Diagnosis"
+                            }
+                        ]
+                    }
+                ],
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://ritikarawlani.github.io/smart-outbreak-measles/FinalClassification",
+                            "code": "1",
+                            "display": "Measles"
+                        }
+                    ]
+                },
+                "subject": {
+                    "reference": "Patient/b5dee2c9-e27a-4d87-bc56-3c65b52bb53e"
+                },
+                "encounter": {
+                    "reference": "Encounter/344ba1e8-a46a-47c8-90cd-6a9ba0c200db"
+                },
+                "recordedDate": "2023-09-08"
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:a223cef3-a76f-494a-b094-e00a2e7a4abb",
+            "resource": {
+                "resourceType": "RelatedPerson",
+                "id": "a223cef3-a76f-494a-b094-e00a2e7a4abb",
+                "patient": {
+                    "reference": "Patient/b5dee2c9-e27a-4d87-bc56-3c65b52bb53e"
+                },
+                "name": [
+                    {
+                        "text": "ritika"
+                    }
+                ]
+            }
+        }
+    ]
+}
