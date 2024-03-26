@@ -6,8 +6,8 @@ import ca.uhn.fhir.rest.annotation.OperationParam;
 import ca.uhn.fhir.rest.server.exceptions.ResourceNotFoundException;
 import org.apache.commons.lang3.StringUtils;
 import org.hl7.fhir.instance.model.api.IBaseResource;
-import org.hl7.fhir.r4.model.CarePlan;
 import org.hl7.fhir.r4.model.IdType;
+import org.hl7.fhir.r4.model.OperationOutcome;
 import org.hl7.fhir.r4.model.PlanDefinition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,15 +46,24 @@ public class ApplyOperationProvider {
 				null, // setting
 				null // settingContext
 			);
-		} catch (ResourceNotFoundException resourceNotFoundException) {
-			// Handle ResourceNotFoundException
-			logger.error("Resource not found: {}", resourceNotFoundException.getMessage());
 		} catch (Exception exception) {
 			// Catch any other unexpected exceptions
-			logger.error("An error occurred: {}", exception.getMessage());
+			return handleException(exception);
+
 		}
-		return new CarePlan();
 	}
+
+	public OperationOutcome handleException(Exception exception) {
+		String message;
+		if (exception instanceof ResourceNotFoundException) {
+			message = "Resource not found: " + exception.getMessage();
+		} else {
+			message = "An unexpected error occurred: " + exception.getMessage();
+		}
+		logger.error(message);
+		return helper.buildOperationOutcome(message);
+	}
+
 
 	private String extractPatientId(String subject) {
 		// Split the subject parameter value by "/" and get the last part

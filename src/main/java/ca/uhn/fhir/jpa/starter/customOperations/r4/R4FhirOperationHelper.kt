@@ -9,16 +9,16 @@ import org.hl7.fhir.instance.model.api.IBaseDatatype
 import org.hl7.fhir.instance.model.api.IBaseResource
 import org.hl7.fhir.r4.context.IWorkerContext
 import org.hl7.fhir.r4.context.SimpleWorkerContext
-import org.hl7.fhir.r4.model.Endpoint
-import org.hl7.fhir.r4.model.ResourceType
-import org.hl7.fhir.r4.model.Questionnaire
-import org.hl7.fhir.r4.model.QuestionnaireResponse
 import org.hl7.fhir.r4.model.Bundle
-import org.hl7.fhir.r4.model.Reference
+import org.hl7.fhir.r4.model.CanonicalType
+import org.hl7.fhir.r4.model.Endpoint
+import org.hl7.fhir.r4.model.IdType
 import org.hl7.fhir.r4.model.Measure
 import org.hl7.fhir.r4.model.MeasureReport
-import org.hl7.fhir.r4.model.CanonicalType
-import org.hl7.fhir.r4.model.IdType
+import org.hl7.fhir.r4.model.Questionnaire
+import org.hl7.fhir.r4.model.QuestionnaireResponse
+import org.hl7.fhir.r4.model.Reference
+import org.hl7.fhir.r4.model.ResourceType
 import org.hl7.fhir.utilities.npm.NpmPackage
 import org.opencds.cqf.fhir.cql.EvaluationSettings
 import org.opencds.cqf.fhir.cr.measure.MeasureEvaluationOptions
@@ -29,6 +29,9 @@ import org.opencds.cqf.fhir.utility.monad.Eithers
 import org.opencds.cqf.fhir.utility.repository.Repositories
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import org.hl7.fhir.r4.model.OperationOutcome
+import org.hl7.fhir.r4.model.OperationOutcome.OperationOutcomeIssueComponent
+
 @Service
 open class R4FhirOperationHelper  @Autowired constructor(private val appProperties: AppProperties) {
 
@@ -142,4 +145,14 @@ open class R4FhirOperationHelper  @Autowired constructor(private val appProperti
         return if (id.indexOf("/") == -1) "$defaultType/$id" else id
     }
 
+    // Helper method to create OperationOutcome
+    public fun buildOperationOutcome(message: String): OperationOutcome {
+        val outcome = OperationOutcome()
+        val issue = OperationOutcomeIssueComponent()
+        issue.severity = OperationOutcome.IssueSeverity.ERROR
+        issue.code = OperationOutcome.IssueType.EXCEPTION
+        issue.diagnostics = message
+        outcome.addIssue(issue)
+        return outcome
+    }
 }

@@ -62,18 +62,25 @@ class ExtractOperationProvider {
                     }
                 )
             }
-        } catch (resourceNotFoundException: ResourceNotFoundException) {
-            // Handle ResourceNotFoundException
-            logger.error("Resource not found: ${resourceNotFoundException.message}")
-        } catch (ioException: IOException) {
-            // Handle IOException
-            logger.error("IO error occurred: ${ioException.message}")
-        } catch (exception: Exception) {
-            // Catch any other unexpected exceptions
-            logger.error("An error occurred: ${exception.message}")
+        }  catch (e: Exception) {
+            return handleException(e)
         }
-        // Return empty Bundle
-        return Bundle()
     }
+
+    private fun handleException(exception: Exception): Bundle {
+        val message = when (exception) {
+            is ResourceNotFoundException -> "Resource not found: ${exception.message}"
+            is IOException -> "IO error occurred: ${exception.message}"
+            else -> "An error occurred: ${exception.message}"
+        }
+        logger.error(message)
+        val outcome = r4FhirOperationHelper.buildOperationOutcome(message)
+        val bundle = Bundle()
+        bundle.type = Bundle.BundleType.MESSAGE
+        bundle.addEntry().resource = outcome
+        return bundle
+    }
+
+
 
 }
