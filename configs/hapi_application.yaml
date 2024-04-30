@@ -46,7 +46,7 @@ hapi:
     implementationguides:
 #    ###    example from registry (packages.fhir.org)
       smart:
-        packageUrl: https://worldhealthorganization.github.io/smart-immunizations-measles/package.tgz
+        packageUrl: https://worldhealthorganization.github.io/smart-immunizations-measles/branches/testing/package.tgz
         name: smart.who.int.immunizations-measles
         version: 0.1.0
         reloadExisting: false

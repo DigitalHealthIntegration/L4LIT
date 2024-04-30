@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "93839e15-42f8-48d7-9487-733f99d42f16",
+		"_postman_id": "438a5820-f866-436b-8d77-21ced8d026c8",
 		"name": "Fhir Operations",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "24615511"
+		"_exporter_id": "14557818"
 	},
 	"item": [
 		{
@@ -354,6 +354,145 @@
 							"value": "\"{\\n\" +\n            \"    \\\"resourceType\\\": \\\"QuestionnaireResponse\\\",\\n\" +\n            \"    \\\"id\\\": \\\"2ffdf7e2-e4c4-4ae6-9948-8ec6153a9349\\\",\\n\" +\n            \"    \\\"meta\\\": {\\n\" +\n            \"        \\\"versionId\\\": \\\"1\\\",\\n\" +\n            \"        \\\"lastUpdated\\\": \\\"2024-03-03T16:36:38.422+00:00\\\",\\n\" +\n            \"        \\\"source\\\": \\\"#MFbftRVEMfw15d4O\\\",\\n\" +\n            \"        \\\"tag\\\": [\\n\" +\n            \"            {\\n\" +\n            \"                \\\"system\\\": \\\"https://www.iprdgroup.com/ValueSet/Workflow/tags\\\",\\n\" +\n            \"                \\\"code\\\": \\\"patient-registration\\\",\\n\" +\n            \"                \\\"display\\\": \\\"Patient Registration\\\"\\n\" +\n            \"            }\\n\" +\n            \"        ]\\n\" +\n            \"    },\\n\" +\n            \"    \\\"questionnaire\\\": \\\"Questionnaire/patient-registration\\\",\\n\" +\n            \"    \\\"subject\\\": {\\n\" +\n            \"        \\\"reference\\\": \\\"Patient/189ff7b6-eb8f-4b79-ae11-b54ee05f2892\\\"\\n\" +\n            \"    },\\n\" +\n            \"    \\\"encounter\\\": {\\n\" +\n            \"        \\\"reference\\\": \\\"Encounter/8704570c-b862-4b93-b99c-00b2bf186f5d\\\"\\n\" +\n            \"    },\\n\" +\n            \"    \\\"authored\\\": \\\"2024-03-03T22:06:35+05:30\\\",\\n\" +\n            \"    \\\"author\\\": {\\n\" +\n            \"        \\\"reference\\\": \\\"PractitionerRole/3029548b-dcce-475f-b25f-831d76b02088\\\"\\n\" +\n            \"    },\\n\" +\n            \"    \\\"item\\\": [\\n\" +\n            \"        {\\n\" +\n            \"            \\\"linkId\\\": \\\"patient-basic-details\\\",\\n\" +\n            \"            \\\"text\\\": \\\"Patient details\\\",\\n\" +\n            \"            \\\"item\\\": [\\n\" +\n            \"                {\\n\" +\n            \"                    \\\"linkId\\\": \\\"patient-name\\\",\\n\" +\n            \"                    \\\"item\\\": [\\n\" +\n            \"                        {\\n\" +\n            \"                            \\\"linkId\\\": \\\"first-name\\\",\\n\" +\n            \"                            \\\"text\\\": \\\"First name\\\",\\n\" +\n            \"                            \\\"answer\\\": [\\n\" +\n            \"                                {\\n\" +\n            \"                                    \\\"valueString\\\": \\\"STEST\\\"\\n\" +\n            \"                                }\\n\" +\n            \"                            ]\\n\" +\n            \"                        },\\n\" +\n            \"                        {\\n\" +\n            \"                            \\\"linkId\\\": \\\"middle-name\\\",\\n\" +\n            \"                            \\\"text\\\": \\\"Middle name\\\",\\n\" +\n            \"                            \\\"answer\\\": [\\n\" +\n            \"                                {\\n\" +\n            \"                                    \\\"valueString\\\": \\\"APPOINTMENT \\\"\\n\" +\n            \"                                }\\n\" +\n            \"                            ]\\n\" +\n            \"                        },\\n\" +\n            \"                        {\\n\" +\n            \"                            \\\"linkId\\\": \\\"last-name\\\",\\n\" +\n            \"                            \\\"text\\\": \\\"Last name\\\",\\n\" +\n            \"                            \\\"answer\\\": [\\n\" +\n            \"                                {\\n\" +\n            \"                                    \\\"valueString\\\": \\\"ISSUE\\\"\\n\" +\n            \"                                }\\n\" +\n            \"                            ]\\n\" +\n            \"                        }\\n\" +\n            \"                    ]\\n\" +\n            \"                },\\n\" +\n            \"                {\\n\" +\n            \"                    \\\"linkId\\\": \\\"gender\\\",\\n\" +\n            \"                    \\\"text\\\": \\\"Gender\\\",\\n\" +\n            \"                    \\\"answer\\\": [\\n\" +\n            \"                        {\\n\" +\n            \"                            \\\"valueCoding\\\": {\\n\" +\n            \"                                \\\"system\\\": \\\"http://hl7.org/fhir/administrative-gender\\\",\\n\" +\n            \"                                \\\"code\\\": \\\"female\\\",\\n\" +\n            \"                                \\\"display\\\": \\\"Female\\\"\\n\" +\n            \"                            }\\n\" +\n            \"                        }\\n\" +\n            \"                    ]\\n\" +\n            \"                },\\n\" +\n            \"                {\\n\" +\n            \"                    \\\"linkId\\\": \\\"patient-registration\\\",\\n\" +\n            \"                    \\\"item\\\": [\\n\" +\n            \"                        {\\n\" +\n            \"                            \\\"linkId\\\": \\\"patient-registration\\\",\\n\" +\n            \"                            \\\"text\\\": \\\"Patient Registration\\\",\\n\" +\n            \"                            \\\"answer\\\": [\\n\" +\n            \"                                {\\n\" +\n            \"                                    \\\"valueCoding\\\": {\\n\" +\n            \"                                        \\\"system\\\": \\\"https://iprdgroup.com/custom-codes\\\",\\n\" +\n            \"                                        \\\"code\\\": \\\"patient-registration\\\",\\n\" +\n            \"                                        \\\"display\\\": \\\"Patient Registration\\\"\\n\" +\n            \"                                    }\\n\" +\n            \"                                }\\n\" +\n            \"                            ]\\n\" +\n            \"                        }\\n\" +\n            \"                    ]\\n\" +\n            \"                }\\n\" +\n            \"            ]\\n\" +\n            \"        }\\n\" +\n            \"    ]\\n\" +\n            \"}\"",
 							"disabled": true
 						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Questionnaire-Simple",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "multipart/form-data",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "charset",
+						"value": "UTF-8",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"resourceType\": \"Questionnaire\",\r\n    \"id\": \"client-registration-sample\",\r\n    \"meta\": {\r\n        \"versionId\": \"1\",\r\n        \"lastUpdated\": \"2024-04-30T18:11:56.539+05:30\",\r\n        \"source\": \"#Vqdr1Oe8Js5cFtLk\"\r\n    },\r\n    \"extension\": [\r\n        {\r\n            \"url\": \"http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-targetStructureMap\",\r\n            \"valueCanonical\": \"https://fhir.labs.smartregister.org/StructureMap/PatientRegistration\"\r\n        }\r\n    ],\r\n    \"status\": \"active\",\r\n    \"subjectType\": [\r\n        \"Patient\"\r\n    ],\r\n    \"date\": \"2020-11-18T07:24:47.111Z\",\r\n    \"item\": [\r\n        {\r\n            \"linkId\": \"PR\",\r\n            \"type\": \"group\",\r\n            \"item\": [\r\n                {\r\n                    \"linkId\": \"patient-0-birth-date\",\r\n                    \"text\": \"Date of Birth\",\r\n                    \"type\": \"date\"\r\n                }\r\n            ]\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/fhir/Questionnaire/client-registration-sample",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"fhir",
+						"Questionnaire",
+						"client-registration-sample"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "StructureMap-Simple",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "multipart/form-data",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "charset",
+						"value": "UTF-8",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"resourceType\": \"StructureMap\",\r\n    \"id\": \"PatientRegistration\",\r\n    \"meta\": {\r\n        \"versionId\": \"1\",\r\n        \"lastUpdated\": \"2024-04-30T18:11:59.744+05:30\",\r\n        \"source\": \"#rBggDJDCECBpeIsd\"\r\n    },\r\n    \"text\": {\r\n        \"status\": \"additional\",\r\n        \"div\": \"<div xmlns=\\\"http://www.w3.org/1999/xhtml\\\"><pre>map &quot;http://hl7.org/fhir/StructureMap/PatientRegistration&quot; = 'PatientRegistration'\\n\\n        uses &quot;http://hl7.org/fhir/StructureDefinition/QuestionnaireReponse&quot; as source\\n        uses &quot;http://hl7.org/fhir/StructureDefinition/Bundle&quot; as target\\n        \\n        group PatientRegistration(source src : QuestionnaireResponse, target bundle: Bundle) {\\n            src -&gt; bundle.id = uuid() &quot;rule_c&quot;;\\n            src -&gt; bundle.type = 'collection' &quot;rule_b&quot;;\\n            src -&gt; bundle.entry as entry, entry.resource = create('Patient') as patient then\\n                ExtractPatient(src, patient) &quot;rule_z&quot;;\\n        }\\n        \\n        group ExtractPatient(source src : QuestionnaireResponse, target tgt : Patient) {\\n             src.item as item where(linkId = 'PR') then {\\n                 item.item as inner_item where (linkId = 'patient-0-birth-date') then {\\n                     inner_item.answer first as ans then { \\n                         ans.value as val -&gt; tgt.birthDate = val &quot;rule_a&quot;;\\n                     } ;\\n                 } ;\\n             };\\n        }</pre></div>\"\r\n    },\r\n    \"url\": \"http://hl7.org/fhir/StructureMap/PatientRegistration\",\r\n    \"name\": \"PatientRegistration\",\r\n    \"structure\": [\r\n        {\r\n            \"url\": \"http://hl7.org/fhir/StructureDefinition/QuestionnaireReponse\",\r\n            \"mode\": \"source\"\r\n        },\r\n        {\r\n            \"url\": \"http://hl7.org/fhir/StructureDefinition/Bundle\",\r\n            \"mode\": \"target\"\r\n        }\r\n    ],\r\n    \"group\": [\r\n        {\r\n            \"name\": \"PatientRegistration\",\r\n            \"typeMode\": \"none\",\r\n            \"input\": [\r\n                {\r\n                    \"name\": \"src\",\r\n                    \"type\": \"QuestionnaireResponse\",\r\n                    \"mode\": \"source\"\r\n                },\r\n                {\r\n                    \"name\": \"bundle\",\r\n                    \"type\": \"Bundle\",\r\n                    \"mode\": \"target\"\r\n                }\r\n            ],\r\n            \"rule\": [\r\n                {\r\n                    \"name\": \"rule_c\",\r\n                    \"source\": [\r\n                        {\r\n                            \"context\": \"src\"\r\n                        }\r\n                    ],\r\n                    \"target\": [\r\n                        {\r\n                            \"context\": \"bundle\",\r\n                            \"contextType\": \"variable\",\r\n                            \"element\": \"id\",\r\n                            \"transform\": \"uuid\"\r\n                        }\r\n                    ]\r\n                },\r\n                {\r\n                    \"name\": \"rule_b\",\r\n                    \"source\": [\r\n                        {\r\n                            \"context\": \"src\"\r\n                        }\r\n                    ],\r\n                    \"target\": [\r\n                        {\r\n                            \"context\": \"bundle\",\r\n                            \"contextType\": \"variable\",\r\n                            \"element\": \"type\",\r\n                            \"transform\": \"copy\",\r\n                            \"parameter\": [\r\n                                {\r\n                                    \"valueString\": \"collection\"\r\n                                }\r\n                            ]\r\n                        }\r\n                    ]\r\n                },\r\n                {\r\n                    \"name\": \"rule_z\",\r\n                    \"source\": [\r\n                        {\r\n                            \"context\": \"src\"\r\n                        }\r\n                    ],\r\n                    \"target\": [\r\n                        {\r\n                            \"context\": \"bundle\",\r\n                            \"contextType\": \"variable\",\r\n                            \"element\": \"entry\",\r\n                            \"variable\": \"entry\"\r\n                        },\r\n                        {\r\n                            \"context\": \"entry\",\r\n                            \"contextType\": \"variable\",\r\n                            \"element\": \"resource\",\r\n                            \"variable\": \"patient\",\r\n                            \"transform\": \"create\",\r\n                            \"parameter\": [\r\n                                {\r\n                                    \"valueString\": \"Patient\"\r\n                                }\r\n                            ]\r\n                        }\r\n                    ],\r\n                    \"dependent\": [\r\n                        {\r\n                            \"name\": \"ExtractPatient\",\r\n                            \"variable\": [\r\n                                \"src\",\r\n                                \"patient\"\r\n                            ]\r\n                        }\r\n                    ]\r\n                }\r\n            ]\r\n        },\r\n        {\r\n            \"name\": \"ExtractPatient\",\r\n            \"typeMode\": \"none\",\r\n            \"input\": [\r\n                {\r\n                    \"name\": \"src\",\r\n                    \"type\": \"QuestionnaireResponse\",\r\n                    \"mode\": \"source\"\r\n                },\r\n                {\r\n                    \"name\": \"tgt\",\r\n                    \"type\": \"Patient\",\r\n                    \"mode\": \"target\"\r\n                }\r\n            ],\r\n            \"rule\": [\r\n                {\r\n                    \"name\": \"item\",\r\n                    \"source\": [\r\n                        {\r\n                            \"context\": \"src\",\r\n                            \"element\": \"item\",\r\n                            \"variable\": \"item\",\r\n                            \"condition\": \"(linkId = 'PR')\"\r\n                        }\r\n                    ],\r\n                    \"rule\": [\r\n                        {\r\n                            \"name\": \"item\",\r\n                            \"source\": [\r\n                                {\r\n                                    \"context\": \"item\",\r\n                                    \"element\": \"item\",\r\n                                    \"variable\": \"inner_item\",\r\n                                    \"condition\": \"(linkId = 'patient-0-birth-date')\"\r\n                                }\r\n                            ],\r\n                            \"rule\": [\r\n                                {\r\n                                    \"name\": \"answer\",\r\n                                    \"source\": [\r\n                                        {\r\n                                            \"context\": \"inner_item\",\r\n                                            \"element\": \"answer\",\r\n                                            \"listMode\": \"first\",\r\n                                            \"variable\": \"ans\"\r\n                                        }\r\n                                    ],\r\n                                    \"rule\": [\r\n                                        {\r\n                                            \"name\": \"rule_a\",\r\n                                            \"source\": [\r\n                                                {\r\n                                                    \"context\": \"ans\",\r\n                                                    \"element\": \"value\",\r\n                                                    \"variable\": \"val\"\r\n                                                }\r\n                                            ],\r\n                                            \"target\": [\r\n                                                {\r\n                                                    \"context\": \"tgt\",\r\n                                                    \"contextType\": \"variable\",\r\n                                                    \"element\": \"birthDate\",\r\n                                                    \"transform\": \"copy\",\r\n                                                    \"parameter\": [\r\n                                                        {\r\n                                                            \"valueId\": \"val\"\r\n                                                        }\r\n                                                    ]\r\n                                                }\r\n                                            ]\r\n                                        }\r\n                                    ]\r\n                                }\r\n                            ]\r\n                        }\r\n                    ]\r\n                }\r\n            ]\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/fhir/StructureMap/PatientRegistration",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"fhir",
+						"StructureMap",
+						"PatientRegistration"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "$Extract-Simple",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "multipart/form-data",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "charset",
+						"value": "UTF-8",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"resourceType\": \"QuestionnaireResponse\",\r\n    \"questionnaire\": \"client-registration-sample\",\r\n    \"item\": [\r\n        {\r\n            \"linkId\": \"PR\",\r\n            \"item\": [\r\n                {\r\n                    \"linkId\": \"patient-0-birth-date\",\r\n                    \"answer\": [\r\n                        {\r\n                            \"valueDate\": \"2016-02-11\"\r\n                        }\r\n                    ]\r\n                }\r\n            ]\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/fhir/QuestionnaireResponse/client-registration-sample/$extract",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"fhir",
+						"QuestionnaireResponse",
+						"client-registration-sample",
+						"$extract"
 					]
 				}
 			},
