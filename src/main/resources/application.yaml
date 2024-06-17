@@ -92,9 +92,9 @@ hapi:
     #    install_transitive_ig_dependencies: true
     implementationguides:
 #    ###    example from registry (packages.fhir.org)
-#      packageUrl: https://worldhealthorganization.github.io/smart-immunizations-measles/package.tgz
+#      packageUrl: https://worldhealthorganization.github.io/smart-example-immz/package.tgz
       smart:
-        packageUrl: https://worldhealthorganization.github.io/smart-immunizations-measles/branches/testing/package.tgz
+        packageUrl: https://worldhealthorganization.github.io/smart-example-immz/package.tgz
         name: smart.who.int.immunizations-measles
         version: 0.1.0
         reloadExisting: false
