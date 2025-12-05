@@ -93,22 +93,22 @@ hapi:
     implementationguides:
 #    ###    example from registry (packages.fhir.org)
 #      packageUrl: https://worldhealthorganization.github.io/smart-immunizations-measles/package.tgz
-      smart:
-        packageUrl: https://worldhealthorganization.github.io/smart-immunizations-measles/branches/testing/package.tgz
-        name: smart.who.int.immunizations-measles
-        version: 0.1.0
-        reloadExisting: false
-        installMode: STORE_AND_INSTALL
-        installResourceTypes:
-          - StructureMap
-          - StructureDefinition
-          - Questionnaire
-          - PlanDefinition
-          - Library
-          - ConceptMap
-          - CodeSystem
-          - ValueSet
-          - ActivityDefinition
+      # smart:
+      #   packageUrl: https://worldhealthorganization.github.io/smart-immunizations-measles/branches/testing/package.tgz
+      #   name: smart.who.int.immunizations-measles
+      #   version: 0.1.0
+      #   reloadExisting: false
+      #   installMode: STORE_AND_INSTALL
+      #   installResourceTypes:
+      #     - StructureMap
+      #     - StructureDefinition
+      #     - Questionnaire
+      #     - PlanDefinition
+      #     - Library
+      #     - ConceptMap
+      #     - CodeSystem
+      #     - ValueSet
+      #     - ActivityDefinition
 #      smart:
 #        packageUrl: https://worldhealthorganization.github.io/smart-ot/full-ig.zip
 #        name: fhir.worldhealthorganization.smart-ot

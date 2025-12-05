@@ -45,41 +45,41 @@ hapi:
     #    install_transitive_ig_dependencies: true
     implementationguides:
 #    ###    example from registry (packages.fhir.org)
-      smart:
-        packageUrl: https://worldhealthorganization.github.io/smart-immunizations-measles/package.tgz
-        name: smart.who.int.immunizations-measles
-        version: 0.1.0
-        reloadExisting: false
-        installMode: STORE_AND_INSTALL
-        installResourceTypes:
-          - StructureMap
-          - StructureDefinition
-          - Questionnaire
-          - PlanDefinition
-          - Library
-          - ConceptMap
-          - CodeSystem
-          - ValueSet
-          - ActivityDefinition
+      # smart:
+      #   packageUrl: https://worldhealthorganization.github.io/smart-immunizations-measles/package.tgz
+      #   name: smart.who.int.immunizations-measles
+      #   version: 0.1.0
+      #   reloadExisting: false
+      #   installMode: STORE_AND_INSTALL
+      #   installResourceTypes:
+      #     - StructureMap
+      #     - StructureDefinition
+      #     - Questionnaire
+      #     - PlanDefinition
+      #     - Library
+      #     - ConceptMap
+      #     - CodeSystem
+      #     - ValueSet
+      #     - ActivityDefinition
 #      smart:
 #        packageUrl: https://worldhealthorganization.github.io/smart-ot/full-ig.zip
 #        name: fhir.worldhealthorganization.smart-ot
 #        version: 0.2.1
 #        reloadExisting: false
 #        installMode: STORE_AND_INSTALL
-#      swiss:
-#        name: swiss.mednet.fhir
-#        version: 0.8.0
-#        reloadExisting: false
-#        installMode: STORE_AND_INSTALL
-##          example not from registry
-#        ips_1_0_0:
-#          packageUrl: https://build.fhir.org/ig/HL7/fhir-ips/package.tgz
-#          name: hl7.fhir.uv.ips
-#          version: 1.0.0
-    #    supported_resource_types:
-    #      - Patient
-    #      - Observation
+     swiss:
+       name: swiss.mednet.fhir
+       version: 0.8.0
+       reloadExisting: false
+       installMode: STORE_AND_INSTALL
+#          example not from registry
+       ips_1_0_0:
+         packageUrl: https://build.fhir.org/ig/HL7/fhir-ips/package.tgz
+         name: hl7.fhir.uv.ips
+         version: 1.0.0
+       supported_resource_types:
+         - Patient
+         - Observation
     ##################################################
     # Allowed Bundle Types for persistence (defaults are: COLLECTION,DOCUMENT,MESSAGE)
     ##################################################
